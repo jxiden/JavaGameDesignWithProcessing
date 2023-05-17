@@ -8,8 +8,8 @@ Grid grid = new Grid(6,8);
 PImage bg;
 PImage player1;
 PImage endScreen;
-String titleText = "NameOfYourGame";
-String extraText = "Who's Turn?";
+String titleText = "Peter the Horse is here";
+String extraText = "Whose Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
 
@@ -31,7 +31,7 @@ void setup() {
 
   //Load images used
   //bg = loadImage("images/chess.jpg");
-  bg = loadImage("images/x_wood.png");
+  bg = loadImage("images/Backrooms-Games.png");
   bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -67,29 +67,43 @@ void draw() {
 
 }
 
-//Known Processing method that automatically will run whenever a key is pressed
-void keyPressed(){
+  //Known Processing method that automatically will run whenever a key is pressed
+  void keyPressed(){
 
-  //check what key was pressed
-  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
+    //check what key was pressed
+    System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
-  //What to do when a key is pressed?
-  
-  //set "w" key to move the player1 up
-  if(keyCode == 87){
-    //check case where out of bounds
+    //What to do when a key is pressed?
     
-    //change the field for player1Row
-    player1Row--;
+    //set "w" key to move the player1 up
+    if(keyCode == 87){
+      //check case where out of bounds
+      
+      //change the field for player1Row
+      player1Row--;
 
-    //shift the player1 picture up in the 2D array
-    GridLocation loc = new GridLocation(player1Row, 0);
-    grid.setTileImage(loc, player1);
+      //shift the player1 picture up in the 2D array
+      GridLocation loc = new GridLocation(player1Row, 0);
+      grid.setTileImage(loc, player1);
 
-    //eliminate the picture from the old location
+      //eliminate the picture from the old location
 
+    }
+    
+    if(keyCode == 83){
+      //check case where out of bounds
+      
+      //change the field for player1Row
+      player1Row++;
+
+      //shift the player1 picture up in the 2D array
+      GridLocation loc = new GridLocation(player1Row, 0);
+      grid.setTileImage(loc, player1);
+
+      //eliminate the picture from the old location
+
+    }
   }
-}
 
   //Known Processing method that automatically will run when a mouse click triggers it
   void mouseClicked(){
@@ -107,6 +121,7 @@ void keyPressed(){
     grid.setMark("X",grid.getGridLocation());
     
   }
+
 
 
 //------------------ CUSTOM  METHODS --------------------//

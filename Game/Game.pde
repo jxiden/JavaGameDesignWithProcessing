@@ -4,7 +4,7 @@
  */
 
 //GAME VARIABLES
-Grid grid = new Grid(6,8);
+Grid grid = new Grid(10,10);
 PImage bg;
 PImage player1;
 PImage endScreen;
@@ -17,7 +17,8 @@ boolean doAnimation;
 //import processing.sound.*;
 //SoundFile song;
 
-int player1Row = 3;
+int player1Row = 0;
+int player1Col = 0;
 
 
 //Required Processing method that gets run once
@@ -33,7 +34,7 @@ void setup() {
   //bg = loadImage("images/chess.jpg");
   bg = loadImage("images/Backrooms-Games.png");
   bg.resize(800,600);
-  player1 = loadImage("images/x_wood.png");
+  player1 = loadImage("images/LetterS.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 
@@ -75,33 +76,84 @@ void draw() {
 
     //What to do when a key is pressed?
     
-    //set "w" key to move the player1 up
+    // W KEY (UP)
     if(keyCode == 87){
+      System.out.println(grid.getTileWidthPixels());
+      player1 = loadImage("images/LetterW.png");
+      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
-      
+
+      if (player1Row != 0) {
       //change the field for player1Row
       player1Row--;
 
       //shift the player1 picture up in the 2D array
-      GridLocation loc = new GridLocation(player1Row, 0);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileImage(loc, player1);
 
       //eliminate the picture from the old location
-
+      }
     }
     
+    // S KEY (DOWN)
     if(keyCode == 83){
+      System.out.println(grid.getTileHeightPixels());
+      player1 = loadImage("images/LetterS.png");
+      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
-      
+      if (player1Row != grid.getRows()-1) {
       //change the field for player1Row
       player1Row++;
 
-      //shift the player1 picture up in the 2D array
-      GridLocation loc = new GridLocation(player1Row, 0);
+      //shift the player1 picture down in the 2D array
+      GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileImage(loc, player1);
 
       //eliminate the picture from the old location
+      }
+    }
+    
+    // A KEY (LEFT)
+    if(keyCode == 65){
+      player1 = loadImage("images/LetterA.png");
+      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
+      //check case where out of bounds
+      if (player1Col != 0) {
+      //change the field for player1Col
+      player1Col--;
 
+      //shift the player1 picture left in the 2D array
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileImage(loc, player1);
+
+      //eliminate the picture from the old location
+      }
+
+      //This is example code for if you want the player to loop around!
+      /**
+      else {
+        GridLocation loc = new GridLocation(player1Row, grid.getCols()-1);
+        grid.setTileImage(loc,player1);
+        player1Col = grid.getCols()-1;
+      }
+      **/
+    }
+
+    // D KEY (RIGHT)
+    if(keyCode == 68){
+      player1 = loadImage("images/LetterD.png");
+      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
+      //check case where out of bounds
+      if (player1Col != grid.getCols()-1) {
+      //change the field for player1Col
+      player1Col++;
+
+      //shift the player1 picture right in the 2D array
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileImage(loc, player1);
+
+      //eliminate the picture from the old location
+      }
     }
   }
 
@@ -146,7 +198,7 @@ public void updateScreen(){
   background(bg);
 
   //Display the Player1 image
-  GridLocation player1Loc = new GridLocation(player1Row,0);
+  GridLocation player1Loc = new GridLocation(player1Row,player1Col);
   grid.setTileImage(player1Loc, player1);
   
   //update other screen elements

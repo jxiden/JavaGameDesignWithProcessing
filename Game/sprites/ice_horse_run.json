@@ -1,6 +1,7 @@
 {
-  "frames": {
-    "ice-horse-run-04.png": {
+  "frames": [
+    {
+      "filename": "ice-horse-run-04.png",
       "frame": {
         "x": 0,
         "y": 0,
@@ -24,10 +25,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-02.png": {
+    {
+      "filename": "ice-horse-run-02.png",
       "frame": {
-        "x": 170,
-        "y": 0,
+        "x": 0,
+        "y": 102,
         "w": 169,
         "h": 105
       },
@@ -48,10 +50,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-03.png": {
+    {
+      "filename": "ice-horse-run-03.png",
       "frame": {
         "x": 0,
-        "y": 102,
+        "y": 207,
         "w": 168,
         "h": 106
       },
@@ -72,10 +75,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-05.png": {
+    {
+      "filename": "ice-horse-run-05.png",
       "frame": {
-        "x": 339,
-        "y": 0,
+        "x": 0,
+        "y": 313,
         "w": 167,
         "h": 103
       },
@@ -96,10 +100,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-01.png": {
+    {
+      "filename": "ice-horse-run-01.png",
       "frame": {
-        "x": 506,
-        "y": 0,
+        "x": 0,
+        "y": 416,
         "w": 164,
         "h": 104
       },
@@ -120,10 +125,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-06.png": {
+    {
+      "filename": "ice-horse-run-06.png",
       "frame": {
-        "x": 339,
-        "y": 103,
+        "x": 0,
+        "y": 520,
         "w": 163,
         "h": 104
       },
@@ -144,10 +150,11 @@
         "y": 0.5
       }
     },
-    "ice-horse-run-00.png": {
+    {
+      "filename": "ice-horse-run-00.png",
       "frame": {
-        "x": 168,
-        "y": 105,
+        "x": 0,
+        "y": 624,
         "w": 162,
         "h": 90
       },
@@ -168,15 +175,15 @@
         "y": 0.5
       }
     }
-  },
+  ],
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
     "image": "texture.png",
     "format": "RGBA8888",
     "size": {
-      "w": 670,
-      "h": 208
+      "w": 170,
+      "h": 714
     },
     "scale": 1
   }

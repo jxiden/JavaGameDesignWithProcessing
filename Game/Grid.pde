@@ -194,5 +194,13 @@ public class Grid{
     }
   }
 
+  public int getCols() {
+    return cols;
+  }
+
+  public int getRows() {
+    return rows;
+  }
+
 
 }

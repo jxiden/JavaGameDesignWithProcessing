@@ -4,6 +4,7 @@
  */
 
 //GAME VARIABLES
+private int msElapsed = 0;
 Grid grid = new Grid(10,10);
 PImage bg;
 PImage player1;
@@ -46,9 +47,11 @@ void setup() {
   //Animation & Sprite setup
   exampleAnimationSetup();
 
-  println("Game started...");
-
+  imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
+  
+  println("Game started...");
+  
 }
 
 //Required Processing method that automatically loops
@@ -56,15 +59,22 @@ void setup() {
 void draw() {
 
   updateTitleBar();
+
+  if (msElapsed % 300 == 0) {
+    populateSprites();
+    moveSprites();
+  }
+
   updateScreen();
-  populateSprites();
-  moveSprites();
   
   if(isGameOver()){
     endGame();
   }
 
   checkExampleAnimation();
+  
+  msElapsed +=100;
+  grid.pause(100);
 
 }
 
@@ -101,7 +111,7 @@ void draw() {
       player1 = loadImage("images/LetterS.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
-      if (player1Row != grid.getRows()-1) {
+      if (player1Row != grid.getNumRows()-1) {
       //change the field for player1Row
       player1Row++;
 
@@ -144,7 +154,7 @@ void draw() {
       player1 = loadImage("images/LetterD.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
-      if (player1Col != grid.getCols()-1) {
+      if (player1Col != grid.getNumCols()-1) {
       //change the field for player1Col
       player1Col++;
 
@@ -201,19 +211,62 @@ public void updateScreen(){
   GridLocation player1Loc = new GridLocation(player1Row,player1Col);
   grid.setTileImage(player1Loc, player1);
   
-  //update other screen elements
+  //Loop through all the Tiles and display its images/sprites
+  
+
+      //Store temporary GridLocation
+      
+      //Check if the tile has an image/sprite 
+      //--> Display the tile's image/sprite
+
+
+
+  //Update other screen elements
 
 
 }
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
+  
+  //What is the index for the last column?
+  
+
+  //Loop through all the rows in the last column
+  
+    //Generate a random number
+    
+
+    //10% of the time, decide to add an enemy image to a Tile
+    
 
 }
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
 
+//Loop through all of the rows & cols in the grid
+  
+      //Store the 2 tile locations to move
+
+      //Check if the current tile has an image that is not player1      
+
+
+        //Get image/sprite from current location
+
+
+        //CASE 1: Collision with player1
+
+
+        //CASE 2: Move enemy over to new location
+
+        
+        //Erase image/sprite from old location
+        
+        //System.out.println(loc + " " + grid.hasTileImage(loc));
+
+
+      //CASE 3: Enemy leaves screen at first column
 
 }
 
@@ -248,6 +301,6 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(1.0, 0.1, true);
+    exampleSprite.animateVertical(5.0, 1.0, true);
   }
 }

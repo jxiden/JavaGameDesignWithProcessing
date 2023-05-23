@@ -12,6 +12,7 @@ PImage endScreen;
 String titleText = "Peter the Horse is here";
 String extraText = "Whose Turn?";
 AnimatedSprite exampleSprite;
+AnimatedSprite exampleSprite2;
 boolean doAnimation;
 
 //HexGrid hGrid = new HexGrid(3);
@@ -73,8 +74,8 @@ void draw() {
 
   checkExampleAnimation();
   
-  msElapsed +=100;
-  grid.pause(100);
+  msElapsed +=10;
+  grid.pause(10);
 
 }
 
@@ -296,11 +297,13 @@ public void endGame(){
 public void exampleAnimationSetup(){  
   int i = 2;
   exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
+  exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
 }
 
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(5.0, 1.0, true);
+    exampleSprite.animateVertical(1.0, 0.75, true);
+    exampleSprite2.animateHorizontal(1.0, 1.0, true);
   }
 }

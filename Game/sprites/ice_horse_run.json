@@ -1,20 +1,45 @@
 {
   "frames": [
     {
-      "filename": "ice-horse-run-04.png",
+      "filename": "ice-horse-run-00.png",
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 170,
-        "h": 102
+        "w": 162,
+        "h": 90
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 15,
-        "y": 31,
-        "w": 170,
-        "h": 102
+        "x": 22,
+        "y": 29,
+        "w": 162,
+        "h": 90
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "ice-horse-run-01.png",
+      "frame": {
+        "x": 499,
+        "y": 0,
+        "w": 164,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 20,
+        "y": 29,
+        "w": 164,
+        "h": 104
       },
       "sourceSize": {
         "w": 192,
@@ -28,8 +53,8 @@
     {
       "filename": "ice-horse-run-02.png",
       "frame": {
-        "x": 0,
-        "y": 102,
+        "x": 826,
+        "y": 0,
         "w": 169,
         "h": 105
       },
@@ -53,8 +78,8 @@
     {
       "filename": "ice-horse-run-03.png",
       "frame": {
-        "x": 0,
-        "y": 207,
+        "x": 995,
+        "y": 0,
         "w": 168,
         "h": 106
       },
@@ -76,10 +101,35 @@
       }
     },
     {
+      "filename": "ice-horse-run-04.png",
+      "frame": {
+        "x": 162,
+        "y": 0,
+        "w": 170,
+        "h": 102
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 15,
+        "y": 31,
+        "w": 170,
+        "h": 102
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 144
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
       "filename": "ice-horse-run-05.png",
       "frame": {
-        "x": 0,
-        "y": 313,
+        "x": 332,
+        "y": 0,
         "w": 167,
         "h": 103
       },
@@ -101,35 +151,10 @@
       }
     },
     {
-      "filename": "ice-horse-run-01.png",
-      "frame": {
-        "x": 0,
-        "y": 416,
-        "w": 164,
-        "h": 104
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 20,
-        "y": 29,
-        "w": 164,
-        "h": 104
-      },
-      "sourceSize": {
-        "w": 192,
-        "h": 144
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
       "filename": "ice-horse-run-06.png",
       "frame": {
-        "x": 0,
-        "y": 520,
+        "x": 663,
+        "y": 0,
         "w": 163,
         "h": 104
       },
@@ -149,41 +174,16 @@
         "x": 0.5,
         "y": 0.5
       }
-    },
-    {
-      "filename": "ice-horse-run-00.png",
-      "frame": {
-        "x": 0,
-        "y": 624,
-        "w": 162,
-        "h": 90
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 22,
-        "y": 29,
-        "w": 162,
-        "h": 90
-      },
-      "sourceSize": {
-        "w": 192,
-        "h": 144
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
     }
   ],
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "texture.png",
+    "image": "ice_horse_run.png",
     "format": "RGBA8888",
     "size": {
-      "w": 170,
-      "h": 714
+      "w": 1163,
+      "h": 106
     },
     "scale": 1
   }

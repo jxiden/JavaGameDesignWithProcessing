@@ -303,7 +303,7 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(1.0, 0.75, true);
-    exampleSprite2.animateHorizontal(1.0, 1.0, true);
+    exampleSprite.animateVertical(0.2, 0.2, true);
+    exampleSprite2.animateHorizontal(0.2, 0.2, true);
   }
 }

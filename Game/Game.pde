@@ -90,6 +90,9 @@ void draw() {
     
     // W KEY (UP)
     if(keyCode == 87){
+
+    slime.animateMove(0.0, -0.5, 0.1, true);
+
       System.out.println(grid.getTileWidthPixels());
       player1 = loadImage("images/LetterW.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -109,6 +112,9 @@ void draw() {
     
     // S KEY (DOWN)
     if(keyCode == 83){
+
+    slime.animateMove(0.0, 0.5, 0.1, true);
+
       System.out.println(grid.getTileHeightPixels());
       player1 = loadImage("images/LetterS.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -126,7 +132,11 @@ void draw() {
     }
     
     // A KEY (LEFT)
+
     if(keyCode == 65){
+
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+
       player1 = loadImage("images/LetterA.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
@@ -153,6 +163,10 @@ void draw() {
 
     // D KEY (RIGHT)
     if(keyCode == 68){
+
+      slime.animateMove(0.5, 0.0, 0.1, true);
+
+
       player1 = loadImage("images/LetterD.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
@@ -300,6 +314,7 @@ public void exampleAnimationSetup(){
   int i = 2;
   exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
   exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+  slime = new AnimatedSprite("sprites/slime_down.png", 200.0, i*75.0, "sprites/slime_down.json");
 }
 
 //example method that animates the horse Sprites
@@ -308,4 +323,5 @@ public void checkExampleAnimation(){
     exampleSprite.animateVertical(1.0, 1.0, true);
     exampleSprite2.animateHorizontal(1.0, 1.0, true);
   }
+  slime.animate(0.1);
 }

@@ -13,6 +13,7 @@ String titleText = "Peter the Horse is here";
 String extraText = "Whose Turn?";
 AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
+AnimatedSprite slime;
 boolean doAnimation;
 
 //HexGrid hGrid = new HexGrid(3);
@@ -99,8 +100,8 @@ void draw() {
       player1Row--;
 
       //shift the player1 picture up in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
+      //GridLocation loc = new GridLocation(player1Row, player1Col);
+      //grid.setTileImage(loc, player1);
 
       //eliminate the picture from the old location
       }
@@ -134,10 +135,10 @@ void draw() {
       player1Col--;
 
       //shift the player1 picture left in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
+      GridLocation loc = new GridLocation(player1Row, player1Col+1);
 
       //eliminate the picture from the old location
+      grid.clearTileImage(loc);
       }
 
       //This is example code for if you want the player to loop around!
@@ -223,7 +224,8 @@ public void updateScreen(){
 
 
   //Update other screen elements
-
+  grid.showImages();
+  grid.showSprites();
 
 }
 
@@ -303,7 +305,7 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(0.2, 0.2, true);
-    exampleSprite2.animateHorizontal(0.2, 0.2, true);
+    exampleSprite.animateVertical(1.0, 1.0, true);
+    exampleSprite2.animateHorizontal(1.0, 1.0, true);
   }
 }

@@ -85,12 +85,15 @@ void draw() {
 
     //check what key was pressed
     System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
+    System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
 
     //What to do when a key is pressed?
     
     // W KEY (UP)
     if(keyCode == 87){
-
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
+      }
     slime.animateMove(0.0, -0.5, 0.1, true);
 
       System.out.println(grid.getTileWidthPixels());
@@ -112,6 +115,9 @@ void draw() {
     
     // S KEY (DOWN)
     if(keyCode == 83){
+      if (slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
+      }
 
     slime.animateMove(0.0, 0.5, 0.1, true);
 
@@ -134,7 +140,9 @@ void draw() {
     // A KEY (LEFT)
 
     if(keyCode == 65){
-
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
       slime.animateMove(-0.5, 0.0, 0.1, true);
 
       player1 = loadImage("images/LetterA.png");
@@ -163,7 +171,9 @@ void draw() {
 
     // D KEY (RIGHT)
     if(keyCode == 68){
-
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
       slime.animateMove(0.5, 0.0, 0.1, true);
 
 
@@ -238,8 +248,8 @@ public void updateScreen(){
 
 
   //Update other screen elements
-  grid.showImages();
-  grid.showSprites();
+  //grid.showImages();
+  //grid.showSprites();
 
 }
 
@@ -314,7 +324,7 @@ public void exampleAnimationSetup(){
   int i = 2;
   exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
   exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
-  slime = new AnimatedSprite("sprites/slime_down.png", 200.0, i*75.0, "sprites/slime_down.json");
+  slime = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json");
 }
 
 //example method that animates the horse Sprites

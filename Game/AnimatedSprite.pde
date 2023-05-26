@@ -19,7 +19,7 @@ public class AnimatedSprite extends Sprite{
   // Constructor for AnimatedSprite with Spritesheet (Must use the TexturePacker to make the JSON)
   // https://www.codeandweb.com/texturepacker
   public AnimatedSprite(String png, float x, float y, String json) {
-    super(png, x, y, 1.0, true);
+    super(png, 1.0, x, y, true);
 
     this.jsonPath = json;
     this.animation = new ArrayList<PImage>();

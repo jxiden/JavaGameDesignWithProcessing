@@ -28,7 +28,7 @@ int player1Col = 0;
 void setup() {
 
   //Match the screen size to the background image size
-  size(800, 600);
+  size(960, 720);
 
   //Set the title on the title bar
   surface.setTitle(titleText);
@@ -36,7 +36,7 @@ void setup() {
   //Load images used
   //bg = loadImage("images/chess.jpg");
   bg = loadImage("images/Backrooms-Games.png");
-  bg.resize(800,600);
+  bg.resize(960,720);
   player1 = loadImage("images/LetterS.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
@@ -190,6 +190,42 @@ void draw() {
 
       //eliminate the picture from the old location
       }
+    }
+
+    // Q KEY (UP-LEFT)
+    if (keyCode == 81) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
+      slime.animateMove(0.0, -0.5, 0.1, true);
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+    }
+
+    // E KEY (UP-RIGHT)
+    if (keyCode == 69) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
+      slime.animateMove(0.0, -0.5, 0.1, true);
+      slime.animateMove(0.5, 0.0, 0.1, true);
+    }
+
+    // R KEY (DOWN-LEFT)
+    if (keyCode == 82) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
+      slime.animateMove(0.0, 0.5, 0.1, true);
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+    }
+
+    // F KEY (DOWN-RIGHT)
+    if (keyCode == 70) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
+      slime.animateMove(0.0, 0.5, 0.1, true);
+      slime.animateMove(0.5, 0.0, 0.1, true);
     }
   }
 

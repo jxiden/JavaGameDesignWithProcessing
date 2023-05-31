@@ -91,7 +91,7 @@ void draw() {
     
     // W KEY (UP)
     if(keyCode == 87 || keyCode == 38){
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
       }
     slime.animateMove(0.0, -0.5, 0.1, true);
@@ -115,7 +115,7 @@ void draw() {
     
     // S KEY (DOWN)
     if(keyCode == 83 || keyCode == 40){
-      if (slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
       }
 
@@ -140,7 +140,7 @@ void draw() {
     // A KEY (LEFT)
 
     if(keyCode == 65 || keyCode == 37){
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
       slime.animateMove(-0.5, 0.0, 0.1, true);
@@ -171,7 +171,7 @@ void draw() {
 
     // D KEY (RIGHT)
     if(keyCode == 68 || keyCode == 39){
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
       slime.animateMove(0.5, 0.0, 0.1, true);
@@ -194,7 +194,7 @@ void draw() {
 
     // Q KEY (UP-LEFT)
     if (keyCode == 81) {
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
       slime.animateMove(0.0, -0.5, 0.1, true);
@@ -203,7 +203,7 @@ void draw() {
 
     // E KEY (UP-RIGHT)
     if (keyCode == 69) {
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
       slime.animateMove(0.0, -0.5, 0.1, true);
@@ -212,7 +212,7 @@ void draw() {
 
     // R KEY (DOWN-LEFT)
     if (keyCode == 82) {
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
       slime.animateMove(0.0, 0.5, 0.1, true);
@@ -221,7 +221,7 @@ void draw() {
 
     // F KEY (DOWN-RIGHT)
     if (keyCode == 70) {
-      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
       slime.animateMove(0.0, 0.5, 0.1, true);

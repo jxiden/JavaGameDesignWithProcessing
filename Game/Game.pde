@@ -13,6 +13,7 @@ String titleText = "Peter the Horse is here";
 String extraText = "Whose Turn?";
 AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
+AnimatedSprite slime;
 boolean doAnimation;
 
 //HexGrid hGrid = new HexGrid(3);
@@ -27,7 +28,7 @@ int player1Col = 0;
 void setup() {
 
   //Match the screen size to the background image size
-  size(800, 600);
+  size(960, 720);
 
   //Set the title on the title bar
   surface.setTitle(titleText);
@@ -35,7 +36,7 @@ void setup() {
   //Load images used
   //bg = loadImage("images/chess.jpg");
   bg = loadImage("images/Backrooms-Games.png");
-  bg.resize(800,600);
+  bg.resize(960,720);
   player1 = loadImage("images/LetterS.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
@@ -84,11 +85,17 @@ void draw() {
 
     //check what key was pressed
     System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
+    System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
 
     //What to do when a key is pressed?
     
     // W KEY (UP)
-    if(keyCode == 87){
+    if(keyCode == 87 || keyCode == 38){
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
+      }
+    slime.animateMove(0.0, -0.5, 0.1, true);
+
       System.out.println(grid.getTileWidthPixels());
       player1 = loadImage("images/LetterW.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -99,15 +106,21 @@ void draw() {
       player1Row--;
 
       //shift the player1 picture up in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
+      //GridLocation loc = new GridLocation(player1Row, player1Col);
+      //grid.setTileImage(loc, player1);
 
       //eliminate the picture from the old location
       }
     }
     
     // S KEY (DOWN)
-    if(keyCode == 83){
+    if(keyCode == 83 || keyCode == 40){
+      if (slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
+      }
+
+    slime.animateMove(0.0, 0.5, 0.1, true);
+
       System.out.println(grid.getTileHeightPixels());
       player1 = loadImage("images/LetterS.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -125,7 +138,13 @@ void draw() {
     }
     
     // A KEY (LEFT)
-    if(keyCode == 65){
+
+    if(keyCode == 65 || keyCode == 37){
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+
       player1 = loadImage("images/LetterA.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
@@ -134,10 +153,10 @@ void draw() {
       player1Col--;
 
       //shift the player1 picture left in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
+      GridLocation loc = new GridLocation(player1Row, player1Col+1);
 
       //eliminate the picture from the old location
+      grid.clearTileImage(loc);
       }
 
       //This is example code for if you want the player to loop around!
@@ -151,7 +170,13 @@ void draw() {
     }
 
     // D KEY (RIGHT)
-    if(keyCode == 68){
+    if(keyCode == 68 || keyCode == 39){
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
+      slime.animateMove(0.5, 0.0, 0.1, true);
+
+
       player1 = loadImage("images/LetterD.png");
       player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
       //check case where out of bounds
@@ -165,6 +190,42 @@ void draw() {
 
       //eliminate the picture from the old location
       }
+    }
+
+    // Q KEY (UP-LEFT)
+    if (keyCode == 81) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
+      slime.animateMove(0.0, -0.5, 0.1, true);
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+    }
+
+    // E KEY (UP-RIGHT)
+    if (keyCode == 69) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
+      slime.animateMove(0.0, -0.5, 0.1, true);
+      slime.animateMove(0.5, 0.0, 0.1, true);
+    }
+
+    // R KEY (DOWN-LEFT)
+    if (keyCode == 82) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_up.json") || slime.getJsonPath().equals("sprites/slime_right.json")) {
+        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
+      }
+      slime.animateMove(0.0, 0.5, 0.1, true);
+      slime.animateMove(-0.5, 0.0, 0.1, true);
+    }
+
+    // F KEY (DOWN-RIGHT)
+    if (keyCode == 70) {
+      if (slime.getJsonPath().equals("sprites/slime_down.json") || slime.getJsonPath().equals("sprites/slime_left.json") || slime.getJsonPath().equals("sprites/slime_up.json")) {
+        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+      }
+      slime.animateMove(0.0, 0.5, 0.1, true);
+      slime.animateMove(0.5, 0.0, 0.1, true);
     }
   }
 
@@ -223,7 +284,8 @@ public void updateScreen(){
 
 
   //Update other screen elements
-
+  //grid.showImages();
+  //grid.showSprites();
 
 }
 
@@ -298,12 +360,14 @@ public void exampleAnimationSetup(){
   int i = 2;
   exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
   exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+  slime = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json");
 }
 
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(0.2, 0.2, true);
-    exampleSprite2.animateHorizontal(0.2, 0.2, true);
+    exampleSprite.animateVertical(1.0, 1.0, true);
+    exampleSprite2.animateHorizontal(1.0, 1.0, true);
   }
+  slime.animate(0.1);
 }

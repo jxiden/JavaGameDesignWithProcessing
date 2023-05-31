@@ -1,0 +1,115 @@
+{
+  "frames": [
+    {
+      "filename": "RghoulF0.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 48,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 5,
+        "w": 48,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 97
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "RghoulF1.png",
+      "frame": {
+        "x": 0,
+        "y": 87,
+        "w": 48,
+        "h": 78
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 12,
+        "w": 48,
+        "h": 78
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "RghoulF2.png",
+      "frame": {
+        "x": 0,
+        "y": 165,
+        "w": 48,
+        "h": 72
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 18,
+        "w": 48,
+        "h": 72
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "RghoulF3.png",
+      "frame": {
+        "x": 0,
+        "y": 87,
+        "w": 48,
+        "h": 78
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 12,
+        "w": 48,
+        "h": 78
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "ghoul right.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 48,
+      "h": 237
+    },
+    "scale": 1
+  }
+}

@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.awt.Polygon;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -117,48 +118,16 @@ int player1Col = 0;
     if(keyCode == 87 || keyCode == 38){
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5f, slime.getCenterY()-7.5f, "sprites/slime_up.json");
+        }
+      slime.animateMove(0.0f, -0.5f, 0.1f, true);
       }
-    slime.animateMove(0.0f, -0.5f, 0.1f, true);
-
-      System.out.println(grid.getTileWidthPixels());
-      player1 = loadImage("images/LetterW.png");
-      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-      //check case where out of bounds
-
-      if (player1Row != 0) {
-      //change the field for player1Row
-      player1Row--;
-
-      //shift the player1 picture up in the 2D array
-      //GridLocation loc = new GridLocation(player1Row, player1Col);
-      //grid.setTileImage(loc, player1);
-
-      //eliminate the picture from the old location
-      }
-    }
     
     // S KEY (DOWN)
     if(keyCode == 83 || keyCode == 40){
       if (slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5f, slime.getCenterY()-7.5f, "sprites/slime_down.json");
       }
-
     slime.animateMove(0.0f, 0.5f, 0.1f, true);
-
-      System.out.println(grid.getTileHeightPixels());
-      player1 = loadImage("images/LetterS.png");
-      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-      //check case where out of bounds
-      if (player1Row != grid.getNumRows()-1) {
-      //change the field for player1Row
-      player1Row++;
-
-      //shift the player1 picture down in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
-
-      //eliminate the picture from the old location
-      }
     }
     
     // A KEY (LEFT)
@@ -168,29 +137,6 @@ int player1Col = 0;
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5f, slime.getCenterY()-7.5f, "sprites/slime_left.json");
       }
       slime.animateMove(-0.5f, 0.0f, 0.1f, true);
-
-      player1 = loadImage("images/LetterA.png");
-      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-      //check case where out of bounds
-      if (player1Col != 0) {
-      //change the field for player1Col
-      player1Col--;
-
-      //shift the player1 picture left in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col+1);
-
-      //eliminate the picture from the old location
-      grid.clearTileImage(loc);
-      }
-
-      //This is example code for if you want the player to loop around!
-      /**
-      else {
-        GridLocation loc = new GridLocation(player1Row, grid.getCols()-1);
-        grid.setTileImage(loc,player1);
-        player1Col = grid.getCols()-1;
-      }
-      **/
     }
 
     // D KEY (RIGHT)
@@ -199,21 +145,6 @@ int player1Col = 0;
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5f, slime.getCenterY()-7.5f, "sprites/slime_right.json");
       }
       slime.animateMove(0.5f, 0.0f, 0.1f, true);
-
-
-      player1 = loadImage("images/LetterD.png");
-      player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-      //check case where out of bounds
-      if (player1Col != grid.getNumCols()-1) {
-      //change the field for player1Col
-      player1Col++;
-
-      //shift the player1 picture right in the 2D array
-      GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileImage(loc, player1);
-
-      //eliminate the picture from the old location
-      }
     }
 
     // Q KEY (UP-LEFT)
@@ -294,8 +225,8 @@ public void updateScreen(){
   background(bg);
 
   //Display the Player1 image
-  GridLocation player1Loc = new GridLocation(player1Row,player1Col);
-  grid.setTileImage(player1Loc, player1);
+  //GridLocation player1Loc = new GridLocation(player1Row,player1Col);
+  //grid.setTileImage(player1Loc, player1);
   
   //Loop through all the Tiles and display its images/sprites
   
@@ -399,10 +330,10 @@ public void checkExampleAnimation(){
  * Designed to be used with Spritesheets & JSON Array files from TexturePacker software: 
  * https://free-tex-packer.com/app/
  * Inspired by Daniel Shiffman's p5js Animated Sprite tutorial: https://youtu.be/3noMeuufLZY
- * Author: Joel Bianchi, Aiden Sing, Tahlei Richardson
+ * Authors: Joel Bianchi, Aiden Sing, Tahlei Richardson
  * Last Edit: 5/31/2023
  * Edited jsonFile renamed to jsonFile
- * Variable to track animation speed
+ * Revised Variable to track animation speed
  */
  
 public class AnimatedSprite extends Sprite{
@@ -419,8 +350,7 @@ public class AnimatedSprite extends Sprite{
     PImage spriteSheet;
 
   // Constructor #1 for AnimatedSprite with Spritesheet (Must use the TexturePacker to make the JSON)
-  // https://www.codeandweb.com/texturepacker
-  public AnimatedSprite(String png, String json, float x, float y ) {
+  public AnimatedSprite(String png, String json, float x, float y, float aSpeed) {
     super(png, x, y, 1.0f, true);
     
     this.jsonFile = json;
@@ -450,7 +380,7 @@ public class AnimatedSprite extends Sprite{
       // this.h = this.animation.get(0).height;
       this.len = this.animation.size();
       this.iBucket = 0.0f;
-      this.aSpeed = 0.0f;
+      this.aSpeed = aSpeed;
     }
     super.setW(this.animation.get(0).width);
     super.setH(this.animation.get(0).height);
@@ -460,35 +390,53 @@ public class AnimatedSprite extends Sprite{
 
   }
 
-  // Constructor #2 taking in images and json only
+  //Constructor #2: animations + starting coordinates
+  public AnimatedSprite(String png, String json, float x, float y ) {
+    this(png, json, x, y, 1.0f);
+  }
+
+  // Constructor #3 taking in images and json only
   public AnimatedSprite(String png, String json) {
     this(png, 0.0f, 0.0f, json);
   }
 
   // Legacy Constructor for 2022 version
-    public AnimatedSprite(String png, float x, float y, String json) {
-      this(png, json, x, y);
-    }
+  public AnimatedSprite(String png, float x, float y, String json) {
+    this(png, json, x, y);
+  }
 
 
   //Overriden method: Displays the correct frame of the Sprite image on the screen
   public void show() {
     int index = (int) Math.floor(Math.abs(this.iBucket)) % this.len;
     image(animation.get(index), super.getLeft(), super.getTop());
+    //System.out.println("aSpeed: "+ aSpeed+"\tib: "+iBucket+"\t ind: "+ index);
     //System.out.println("Pos: "+ super.getX() +"," + super.getY());
   } 
 
-  //Method to cycle through the images of the animated sprite
+  //Method to cycle through the images of the animated sprite & reset a new animation speed
   public void animate(float animationSpeed){
-    iBucket +=  animationSpeed * aSpeed;
+    this.aSpeed = animationSpeed;
+    animate();
+  }
+
+  //Method to cycle through the images of the animated sprite
+  public void animate(){
+    iBucket += aSpeed/this.len;
     show();
   }
 
-  //Method that makes animated sprite move in any straight line
+  //Method that makes animated sprite move in any straight line + sets animation speed
   public void animateMove(float hSpeed, float vSpeed, float animationSpeed, boolean wraparound){
+    this.aSpeed = animationSpeed;
+    animateMove(hSpeed, vSpeed, wraparound);
+  }
+  
+  //Method that makes animated sprite move in any straight line
+  public void animateMove(float hSpeed, float vSpeed, boolean wraparound){
     
     //adjust speed & frames
-    animate(animationSpeed);
+    animate();
     super.move( (int) (hSpeed * 10), (int) (vSpeed * 10) );
   
     //wraparound sprite if goes off the right or left
@@ -517,6 +465,15 @@ public class AnimatedSprite extends Sprite{
   public void setAnimationSpeed(float aSpeed) {
     this.aSpeed = aSpeed;
   }
+
+  //Method to resize the animated sprite images to different dimensions
+  public void resize(int x, int y){
+    for(int i=0; i<animation.size(); i++){
+      PImage pi = animation.get(i);
+      pi.resize(x,y);
+    }
+  }
+  
   
 
   //---------------------PRIVATE HELPER METHODS--------------------------//
@@ -755,7 +712,7 @@ public class Grid{
   public void showTileSprite(GridLocation loc){
     GridTile tile = getTile(loc);
     if(tile.hasSprite()){
-      tile.getSprite().animateMove(0.0f, 0.0f, 1.0f, true);
+      tile.getSprite().animate();
     }
   }
 
@@ -1811,43 +1768,43 @@ public class Platform {//extends Sprite {
  * Modified to account for picture coordinates at Top, Left corner
  * Added Constructor #3
  * spriteImgPath renamed to spriteImgFile
+ * variable renaming
  */
 
 public class Sprite {
   
     PImage spriteImg;
     private String spriteImgFile;
-    private float center_x;
-    private float center_y;
-    private float speed_x;
-    private float speed_y;
+    private float centerX;
+    private float centerY;
+    private float speedX;
+    private float speedY;
     private float w;
     private float h;
     private boolean isAnimated;
 
 
-  // Main Constructor
+  // Sprite Constructor #1
   public Sprite(String spriteImgFile, float scale, float x, float y, boolean isAnimated) {
     this.spriteImgFile = spriteImgFile;
     setLeft(x);
     setTop(y);
-    this.speed_x = 0;
-    this.speed_y = 0;
+    this.speedX = 0;
+    this.speedY = 0;
     this.isAnimated = isAnimated;
     if(!isAnimated){
       this.spriteImg = loadImage(spriteImgFile);
       w = spriteImg.width * scale;
       h = spriteImg.height * scale;
     }
-
   }
 
-  // Simpler Constructor for Non-Animated Sprite
+  // Sprite Constructor #2: for Non-Animated Sprite
   public Sprite(String spriteImgFile, float x, float y) {
     this(spriteImgFile, 1.0f, x, y, false);
   }
 
-  //Constructor #3: Only pass in the image
+  // Sprite Constructor #3: Only pass in the image
   public Sprite(String spriteImgFile){
     this(spriteImgFile, 0.0f, 0.0f);
   }
@@ -1865,21 +1822,27 @@ public class Sprite {
   }
 
   // method to move Sprite image on the screen relative to current position
-  public void move(float change_x, float change_y){
-    this.center_x += change_x;
-    this.center_y += change_y;
+  public void move(float changeX, float changeY){
+    this.centerX += changeX;
+    this.centerY += changeY;
     //System.out.println(getLeft() + "," + getTop());
   }
 
   // method that automatically moves the Sprite based on its velocity
   public void update(){
-    move(speed_x, speed_y);
+    move(speedX, speedY);
   }
-
+  public void update(float deltaTime){
+    speedX += deltaTime/1000;
+    speedY += deltaTime/1000;
+    move(speedX, speedY);
+  }
 
   // method to rotate Sprite image on the screen
   public void rotate(float degrees){
-
+    float rads = radians(degrees);
+    translate(centerX,centerY);
+    rotate(rads);
   }
 
 
@@ -1892,10 +1855,10 @@ public class Sprite {
     return h;
   }
   public float getCenterX(){
-    return center_x;
+    return centerX;
   }
   public float getCenterY(){
-    return center_y;
+    return centerY;
   }
   public PImage getImg(){
     return spriteImg;
@@ -1912,11 +1875,11 @@ public class Sprite {
   public void setH(float h){
     this.h=h;
   }
-  public void setCenterX(float center_x){
-    this.center_x = center_x;
+  public void setCenterX(float centerX){
+    this.centerX = centerX;
   }
-  public void setCenterY(float center_y){
-    this.center_y=center_y;
+  public void setCenterY(float centerY){
+    this.centerY=centerY;
   }
   public void setImg(PImage img){
     this.spriteImg = img;
@@ -1931,30 +1894,29 @@ public class Sprite {
     -- https://longbaonguyen.github.io/courses/platformer/platformer.html
   */
    public void setLeft(float left){
-    center_x = left + w/2;
+    centerX = left + w/2;
   }
    public float getLeft(){
-    return center_x - w/2;
+    return centerX - w/2;
   }
    public void setRight(float right){
-    center_x = right - w/2;
+    centerX = right - w/2;
   }
    public float getRight(){
-    return center_x + w/2;
+    return centerX + w/2;
   }
    public void setTop(float top){
-    center_y = top + h/2;
+    centerY = top + h/2;
   }
    public float getTop(){
-    return center_y - h/2;
+    return centerY - h/2;
   }
    public void setBottom(float bottom){
-    center_y = bottom - h/2;
+    centerY = bottom - h/2;
   }
    public float getBottom(){
-    return center_y + h/2;
+    return centerY + h/2;
   }
-  
 
   //Accessor method to the image path of the Sprite
   public String getImagePath(){
@@ -1966,15 +1928,6 @@ public class Sprite {
     return this.spriteImg;
   }
 
-
-  // //Method to check if 2 Sprites are the same (based on String)
-  // public boolean equals(Sprite otherSprite){
-  //   if(this.spriteImgFile.equals(otherSprite.getImagePath())){
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   //Method to check if 2 Sprites are the same (based on PImage)
   public boolean equals(Sprite otherSprite){
     if(this.spriteImgFile != null && otherSprite != null && this.spriteImgFile.equals(otherSprite.getImagePath())){
@@ -1984,8 +1937,89 @@ public class Sprite {
   }
 
   public String toString(){
-    return spriteImgFile + "\t" + getLeft() + "\t" + getTop() + "\t" + speed_x + "\t" + speed_y + "\t" + w + "\t" + h + "\t" + isAnimated;
+    return spriteImgFile + "\t" + getLeft() + "\t" + getTop() + "\t" + speedX + "\t" + speedY + "\t" + w + "\t" + h + "\t" + isAnimated;
   }
+
+}
+/* World Class - Used to describe the screen of a pixel-based game
+ * Authors: Joel Bianchi, Nathan Santos, Clive Sherwood
+ * Last Edit: 5/31/2023
+ * Modified for Processing
+ */
+
+
+
+public class World {
+
+    //World Fields
+	//private static World currentWorld = null;
+    private ArrayList<AnimatedSprite> sprites = new ArrayList<AnimatedSprite>();
+    private PImage bg;
+    private String name = "";
+    private long lastTime = 0;
+	public final static float timeUnitsPerSecond = 1000.0f; //World time based on 1000 milliseconds /second
+
+    //WORLD CONSTRUCTORS
+    //World Constructor #1
+    public World(String name, PImage bgImg) {
+        this.name = name;
+        bg = bgImg;
+    }
+    //World Constructor #2
+	public World(String name) {
+		this(name, null);
+	}
+
+
+    //WORLD METHODS
+    public void setBackgroundImage(PImage bg){
+        background(bg);
+    }
+
+    public void setScreenSize(int w, int h){
+
+    }
+
+    public ArrayList<AnimatedSprite> getSprites(){
+        return sprites;
+    }
+
+    //WORLD SPRITE METHODS
+
+    //method to add a sprite to the world
+	public void addSprite(AnimatedSprite sprite) {
+		if (!sprites.contains(sprite)) {
+			sprites.add(sprite);
+		}
+	}
+
+	//method to remove a sprite from the world
+	public void removeSprite(AnimatedSprite sprite) {
+		if (sprites.contains(sprite)) {
+			sprites.remove(sprite);
+		}
+	}
+
+    //WORLD TIME METHODS
+    public long getWorldTime(){
+        return millis();	//milliseconds world
+    }
+
+
+	//WORLD MUTATOR METHODS
+
+	//method to update all sprites in the world
+	public void update() {
+		
+		//update the World time (converted to seconds)
+		float deltaTime = (getWorldTime() - lastTime) / timeUnitsPerSecond;
+		lastTime = getWorldTime();
+
+		//each cycle, make all sprites move
+		for (AnimatedSprite sprite : sprites) {
+			sprite.update(deltaTime);
+		}
+    }
 
 }
 

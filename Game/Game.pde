@@ -15,6 +15,7 @@ AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
 AnimatedSprite slime;
 boolean doAnimation;
+AnimatedSprite ghoul;
 
 //HexGrid hGrid = new HexGrid(3);
 //import processing.sound.*;
@@ -47,7 +48,7 @@ void setup() {
 
   
   //Animation & Sprite setup
-  exampleAnimationSetup();
+  animationSetup();
 
   imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
@@ -222,6 +223,14 @@ public void updateScreen(){
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
   
+  float randX = (float) (Math.abs(Math.random()*bg.width));
+  float randY = (float) (Math.abs(Math.random()*bg.height));
+  ghoul.setCenterX(randX);
+  ghoul.setCenterY(randY);
+  ghoul.show();
+
+  //ghoul.animate(1.0);
+  System.out.println("Ghoul spawned:" + randX + ", " + randY);
   //What is the index for the last column?
   
 
@@ -286,18 +295,21 @@ public void endGame(){
 }
 
 //example method that creates 5 horses along the screen
-public void exampleAnimationSetup(){  
+public void animationSetup(){  
   int i = 2;
   exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
   exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
   slime = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json");
+  ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json");
 }
 
 //example method that animates the horse Sprites
+// move speed, animation speed, wrap around
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(1.0, 1.0, true);
-    exampleSprite2.animateHorizontal(1.0, 1.0, true);
+    exampleSprite.animateVertical(1.0, 3.0, true);
+    exampleSprite2.animateHorizontal(1.0, 3.0, true);
   }
   slime.animate(0.1);
+  ghoul.animate(1.0);
 }

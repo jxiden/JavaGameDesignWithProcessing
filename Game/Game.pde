@@ -16,14 +16,11 @@ AnimatedSprite exampleSprite2;
 AnimatedSprite slime;
 boolean doAnimation;
 AnimatedSprite ghoul;
+String dashKey = "";
 
 //HexGrid hGrid = new HexGrid(3);
 //import processing.sound.*;
 //SoundFile song;
-
-int player1Row = 0;
-int player1Col = 0;
-
 
 //Required Processing method that gets run once
 void setup() {
@@ -35,7 +32,6 @@ void setup() {
   surface.setTitle(titleText);
 
   //Load images used
-  //bg = loadImage("images/chess.jpg");
   bg = loadImage("images/Backrooms-Games.png");
   bg.resize(960,720);
   player1 = loadImage("images/LetterS.png");
@@ -215,22 +211,22 @@ public void updateScreen(){
 
 
   //Update other screen elements
-  //grid.showImages();
-  //grid.showSprites();
+  grid.showImages();
+  grid.showSprites();
 
 }
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
-  
+  /**
   float randX = (float) (Math.abs(Math.random()*bg.width));
   float randY = (float) (Math.abs(Math.random()*bg.height));
   ghoul.setCenterX(randX);
   ghoul.setCenterY(randY);
   ghoul.show();
-
+  **/
   //ghoul.animate(1.0);
-  System.out.println("Ghoul spawned:" + randX + ", " + randY);
+  //System.out.println("Ghoul spawned:" + randX + ", " + randY);
   //What is the index for the last column?
   
 
@@ -311,5 +307,7 @@ public void checkExampleAnimation(){
     exampleSprite2.animateHorizontal(1.0, 3.0, true);
   }
   slime.animate(0.1);
-  ghoul.animate(1.0);
+  ghoul.animateToPlayer(slime, 1.0, true);
+  System.out.println("Difference:" + (slime.getCenterX() - ghoul.getCenterX()) + ", " + (slime.getCenterY() - ghoul.getCenterY()));
+
 }

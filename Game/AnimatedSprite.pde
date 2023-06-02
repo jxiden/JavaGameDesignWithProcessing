@@ -128,6 +128,15 @@ public class AnimatedSprite extends Sprite{
     animateMove(0, verticalSpeed, animationSpeed, wraparound);
   }
 
+  public void animateToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
+    float xDifference = player.getCenterX() - this.getCenterX();
+    float yDifference = player.getCenterY() - this.getCenterY();
+    if ((xDifference < 150 && xDifference > -150) && (yDifference < 150 && yDifference > -150)) {
+      animateMove(xDifference/300, yDifference/300, animationSpeed, wraparound);
+    }
+    animateMove(xDifference/900, yDifference/900, animationSpeed, wraparound);
+  }
+
   //Accessor method for the JSON path
   public String getJsonFile(){
     return this.jsonFile;

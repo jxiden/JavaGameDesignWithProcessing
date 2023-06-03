@@ -18,6 +18,10 @@ boolean doAnimation;
 AnimatedSprite ghoul;
 String dashKey = "";
 boolean gameOver = false;
+boolean up = false;
+boolean down = false;
+boolean left = false;
+boolean right = false;
 
 //HexGrid hGrid = new HexGrid(3);
 //import processing.sound.*;
@@ -64,7 +68,7 @@ void draw() {
     populateSprites();
     moveSprites();
   }
-
+  handleCollisions();
   updateScreen();
   
   if(isGameOver()){
@@ -78,84 +82,130 @@ void draw() {
 
 }
 
-  //Known Processing method that automatically will run whenever a key is pressed
-  void keyPressed(){
+// Known Processing method that automatically will run whenever a key is pressed
+// Based off of "Programming Keyboard Movement in Processing" by John McCaffrey
+// https://youtu.be/ELyioGdxUZU
+void keyPressed() {
 
-    //check what key was pressed
-    //System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
-    //System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
+  //check what key was pressed
+  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
+  System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
 
-    //What to do when a key is pressed?
-    
-    // W KEY (UP)
-    if(keyCode == 87 || keyCode == 38){
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
-        slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
-        }
-      slime.animateMove(0.0, -0.75, 0.1, true);
-      }
-    
-    // S KEY (DOWN)
-    if(keyCode == 83 || keyCode == 40){
-      if (slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
-        slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
-      }
-    slime.animateMove(0.0, 0.75, 0.1, true);
+  //What to do when a key is pressed?
+   
+  // A KEY (LEFT)
+  if(keyCode == 65 || keyCode == 37) {
+    if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
+      slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
     }
-    
-    // A KEY (LEFT)
-
-    if(keyCode == 65 || keyCode == 37){
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
-        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
-      }
-      slime.animateMove(-0.75, 0.0, 0.1, true);
-    }
-
-    // D KEY (RIGHT)
-    if(keyCode == 68 || keyCode == 39){
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
-        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
-      }
-      slime.animateMove(0.75, 0.0, 0.1, true);
-    }
-
-    // Q KEY (UP-LEFT)
-    if (keyCode == 81) {
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
-        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
-      }
-      slime.animateMove(0.0, -0.75, 0.1, true);
-      slime.animateMove(-0.75, 0.0, 0.1, true);
-    }
-
-    // E KEY (UP-RIGHT)
-    if (keyCode == 69) {
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
-        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
-      }
-      slime.animateMove(0.0, -0.75, 0.1, true);
-      slime.animateMove(0.75, 0.0, 0.1, true);
-    }
-
-    // R KEY (DOWN-LEFT)
-    if (keyCode == 82) {
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
-        slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
-      }
-      slime.animateMove(0.0, 0.75, 0.1, true);
-      slime.animateMove(-0.75, 0.0, 0.1, true);
-    }
-
-    // F KEY (DOWN-RIGHT)
-    if (keyCode == 70) {
-      if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
-        slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
-      }
-      slime.animateMove(0.0, 0.75, 0.1, true);
-      slime.animateMove(0.75, 0.0, 0.1, true);
-    }
+    left = true;
   }
+
+  // W KEY (UP)
+  else if(keyCode == 87 || keyCode == 38) {
+    if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
+      slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
+    }
+    up = true;
+  }
+
+  // D KEY (RIGHT)
+  else if(keyCode == 68 || keyCode == 39) {
+    if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
+      slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
+    }
+    right = true;
+  }
+   
+  // S KEY (DOWN)
+  else if(keyCode == 83 || keyCode == 40) {
+    if (slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
+      slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
+    }
+    down = true;
+  }
+   
+  // HORIZONTAL
+  // slime left method
+  if (left == true && right == false) {
+    slime.animateMove(-0.75, 0.0, 0.1, true);
+  }
+
+  // slime right method
+  if (right == true && left == false) {
+    slime.animateMove(0.75, 0.0, 0.1, true);
+  }
+
+  // if left and right are false then dont move
+  if (left == false && right == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+
+  // VERTICAL
+  // slime up method
+  if (up == true && down == false) {
+    slime.animateMove(0.0, -0.75, 0.1, true);
+  }
+
+  // slime down method
+  if (down == true && up == false) {
+    slime.animateMove(0.0, 0.75, 0.1, true);
+  }
+
+  // if up and down are false then dont move
+  if (down == false && up == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+
+  // STOP METHODS
+  // stop slime up method
+  if (up == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+    
+  // stop slime down method
+  if (down == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+
+  // stop slime left method
+  if (left == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+
+  // stop slime right method
+  if (right == false) {
+    slime.animateMove(0.0, 0.0, 0.1, true);
+  }
+}
+
+//Known Processing method that automatically will run whenever a key is released
+void keyReleased() {
+
+  //check what key was pressed
+  System.out.println("Key released: " + keyCode); //keyCode gives you an integer for the key
+  System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
+
+  // stop left
+  if(keyCode == 65 || keyCode == 37) {
+    left = false;
+  }
+
+  // stop up
+  else if(keyCode == 87 || keyCode == 38) {
+    up = false;
+  }
+
+  // stop right
+  else if(keyCode == 68 || keyCode == 39) {
+    right = false;
+  }
+
+  // stop down
+  else if(keyCode == 83 || keyCode == 40) {
+    down = false;
+  }
+}
 
   //Known Processing method that automatically will run when a mouse click triggers it
   void mouseClicked(){
@@ -243,7 +293,6 @@ public void populateSprites(){
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
-  handleCollisions();
 //Loop through all of the rows & cols in the grid
   
       //Store the 2 tile locations to move
@@ -287,7 +336,7 @@ public boolean isGameOver(){
 
 //method to describe what happens after the game is over
 public void endGame(){
-    System.out.println("Game Over!");
+    //System.out.println("Game Over!");
 
     //Update the title bar
 

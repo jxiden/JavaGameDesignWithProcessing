@@ -16,7 +16,6 @@ AnimatedSprite exampleSprite2;
 AnimatedSprite player;
 boolean doAnimation;
 AnimatedSprite ghoul;
-String dashKey = "";
 boolean gameOver = false;
 boolean up = false;
 boolean down = false;
@@ -77,8 +76,8 @@ void draw() {
 
   checkExampleAnimation();
   
-  msElapsed +=10;
-  grid.pause(10);
+  msElapsed +=1;
+  grid.pause(1);
 
 }
 
@@ -324,6 +323,22 @@ public void handleCollisions(){
     System.out.println("Collision!!!!!");
     gameOver = true;
   }
+
+  if (player.getTop() < 80) {
+    player.animateMove(0.0, 1.1, 0.1, true);
+  }
+
+  if (player.getBottom() > bg.height-80.0) {
+    player.animateMove(0.0, -1.1, 0.1, true);
+  }
+
+  if (player.getLeft() < 80.0) {
+    player.animateMove(1.1, 0.0, 0.1, true);
+  }
+
+  if (player.getRight() > bg.width-80.0) {
+    player.animateMove(-1.1, 0.0, 0.1, true);
+  }
 }
 
 //method to indicate when the main game is over
@@ -364,6 +379,14 @@ public void checkExampleAnimation(){
   player.animate(0.1);
   ghoul.animateToPlayer(player, 1.0, true);
 
+
+  if (ghoul.getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > ghoul.getCenterX()) {
+    ghoul = new AnimatedSprite("sprites/ghoul_right.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_right.json");
+  }
+  if (ghoul.getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < ghoul.getCenterX()) {
+    ghoul = new AnimatedSprite("sprites/ghoul_left.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_left.json");
+  }
+  
   //Difference Testing Code:
   //System.out.println("Difference:" + (player.getCenterX() - ghoul.getCenterX()) + ", " + (player.getCenterY() - ghoul.getCenterY()));
   

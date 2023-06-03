@@ -132,9 +132,9 @@ public class AnimatedSprite extends Sprite{
     float xDifference = player.getCenterX() - this.getCenterX();
     float yDifference = player.getCenterY() - this.getCenterY();
     if ((xDifference < 150 && xDifference > -150) && (yDifference < 150 && yDifference > -150)) {
-      animateMove(xDifference/300, yDifference/300, animationSpeed, wraparound);
+      animateMove(xDifference/300.0, yDifference/300.0, animationSpeed, wraparound);
     }
-    animateMove(xDifference/900, yDifference/900, animationSpeed, wraparound);
+    animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);
   }
 
   //Accessor method for the JSON path

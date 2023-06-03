@@ -17,6 +17,7 @@ AnimatedSprite slime;
 boolean doAnimation;
 AnimatedSprite ghoul;
 String dashKey = "";
+boolean gameOver = false;
 
 //HexGrid hGrid = new HexGrid(3);
 //import processing.sound.*;
@@ -81,8 +82,8 @@ void draw() {
   void keyPressed(){
 
     //check what key was pressed
-    System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
-    System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
+    //System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
+    //System.out.println(slime.getCenterX() + ", " + slime.getCenterY());
 
     //What to do when a key is pressed?
     
@@ -91,7 +92,7 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_up.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_up.json");
         }
-      slime.animateMove(0.0, -0.5, 0.1, true);
+      slime.animateMove(0.0, -0.75, 0.1, true);
       }
     
     // S KEY (DOWN)
@@ -99,7 +100,7 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_down.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_down.json");
       }
-    slime.animateMove(0.0, 0.5, 0.1, true);
+    slime.animateMove(0.0, 0.75, 0.1, true);
     }
     
     // A KEY (LEFT)
@@ -108,7 +109,7 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
-      slime.animateMove(-0.5, 0.0, 0.1, true);
+      slime.animateMove(-0.75, 0.0, 0.1, true);
     }
 
     // D KEY (RIGHT)
@@ -116,7 +117,7 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
-      slime.animateMove(0.5, 0.0, 0.1, true);
+      slime.animateMove(0.75, 0.0, 0.1, true);
     }
 
     // Q KEY (UP-LEFT)
@@ -124,8 +125,8 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
-      slime.animateMove(0.0, -0.5, 0.1, true);
-      slime.animateMove(-0.5, 0.0, 0.1, true);
+      slime.animateMove(0.0, -0.75, 0.1, true);
+      slime.animateMove(-0.75, 0.0, 0.1, true);
     }
 
     // E KEY (UP-RIGHT)
@@ -133,8 +134,8 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
-      slime.animateMove(0.0, -0.5, 0.1, true);
-      slime.animateMove(0.5, 0.0, 0.1, true);
+      slime.animateMove(0.0, -0.75, 0.1, true);
+      slime.animateMove(0.75, 0.0, 0.1, true);
     }
 
     // R KEY (DOWN-LEFT)
@@ -142,8 +143,8 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_up.json") || slime.getJsonFile().equals("sprites/slime_right.json")) {
         slime = new AnimatedSprite("sprites/slime_left.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_left.json");
       }
-      slime.animateMove(0.0, 0.5, 0.1, true);
-      slime.animateMove(-0.5, 0.0, 0.1, true);
+      slime.animateMove(0.0, 0.75, 0.1, true);
+      slime.animateMove(-0.75, 0.0, 0.1, true);
     }
 
     // F KEY (DOWN-RIGHT)
@@ -151,8 +152,8 @@ void draw() {
       if (slime.getJsonFile().equals("sprites/slime_down.json") || slime.getJsonFile().equals("sprites/slime_left.json") || slime.getJsonFile().equals("sprites/slime_up.json")) {
         slime = new AnimatedSprite("sprites/slime_right.png", slime.getCenterX()-10.5, slime.getCenterY()-7.5, "sprites/slime_right.json");
       }
-      slime.animateMove(0.0, 0.5, 0.1, true);
-      slime.animateMove(0.5, 0.0, 0.1, true);
+      slime.animateMove(0.0, 0.75, 0.1, true);
+      slime.animateMove(0.75, 0.0, 0.1, true);
     }
   }
 
@@ -242,7 +243,7 @@ public void populateSprites(){
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
-
+  handleCollisions();
 //Loop through all of the rows & cols in the grid
   
       //Store the 2 tile locations to move
@@ -270,12 +271,17 @@ public void moveSprites(){
 
 //Method to handle the collisions between Sprites on the Screen
 public void handleCollisions(){
-
-
+  if(slime.getTop() < ghoul.getBottom() && slime.getBottom() > ghoul.getTop() && slime.getRight() > ghoul.getLeft() && slime.getLeft() < ghoul.getRight()) {
+    System.out.println("Collision!!!!!");
+    gameOver = true;
+  }
 }
 
 //method to indicate when the main game is over
 public boolean isGameOver(){
+  if (gameOver) {
+    return true;
+  }
   return false; //by default, the game is never over
 }
 
@@ -308,6 +314,11 @@ public void checkExampleAnimation(){
   }
   slime.animate(0.1);
   ghoul.animateToPlayer(slime, 1.0, true);
-  System.out.println("Difference:" + (slime.getCenterX() - ghoul.getCenterX()) + ", " + (slime.getCenterY() - ghoul.getCenterY()));
-
+  //System.out.println("Difference:" + (slime.getCenterX() - ghoul.getCenterX()) + ", " + (slime.getCenterY() - ghoul.getCenterY()));
+  /**
+  System.out.println("Slime Top: " + slime.getTop() + " Ghoul Top: " + ghoul.getTop());
+  System.out.println("Slime Bottom: " + slime.getBottom() + " Ghoul Bottom: " + ghoul.getBottom());
+  System.out.println("Slime Left: " + slime.getLeft() + " Ghoul Left: " + ghoul.getLeft());
+  System.out.println("Slime Right: " + slime.getRight() + " Ghoul Right: " + ghoul.getRight());
+  **/
 }

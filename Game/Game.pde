@@ -325,19 +325,19 @@ public void handleCollisions(){
   }
 
   if (player.getTop() < 80) {
-    player.animateMove(0.0, 1.1, 0.1, true);
+    player.animateMove(0.0, 1.25, 0.1, true);
   }
 
   if (player.getBottom() > bg.height-80.0) {
-    player.animateMove(0.0, -1.1, 0.1, true);
+    player.animateMove(0.0, -1.25, 0.1, true);
   }
 
   if (player.getLeft() < 80.0) {
-    player.animateMove(1.1, 0.0, 0.1, true);
+    player.animateMove(1.25, 0.0, 0.1, true);
   }
 
   if (player.getRight() > bg.width-80.0) {
-    player.animateMove(-1.1, 0.0, 0.1, true);
+    player.animateMove(-1.25, 0.0, 0.1, true);
   }
 }
 

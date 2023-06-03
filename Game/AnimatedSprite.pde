@@ -131,7 +131,7 @@ public class AnimatedSprite extends Sprite{
   public void animateToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
     float xDifference = player.getCenterX() - this.getCenterX();
     float yDifference = player.getCenterY() - this.getCenterY();
-    if ((xDifference < 150 && xDifference > -150) && (yDifference < 150 && yDifference > -150)) {
+    if ((xDifference < 100 && xDifference > -100) && (yDifference < 150 && yDifference > -150)) {
       animateMove(xDifference/300.0, yDifference/300.0, animationSpeed, wraparound);
     }
     animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);

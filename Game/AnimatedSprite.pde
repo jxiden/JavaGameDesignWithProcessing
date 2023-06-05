@@ -106,7 +106,7 @@ public class AnimatedSprite extends Sprite{
   public void animateToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
     float xDifference = player.getCenterX() - this.getCenterX();
     float yDifference = player.getCenterY() - this.getCenterY();
-    if ((xDifference < 100 && xDifference > -100) && (yDifference < 150 && yDifference > -150)) {
+    if ((xDifference < 100 && xDifference > -100) && (yDifference < 100 && yDifference > -100)) {
       animateMove(xDifference/300.0, yDifference/300.0, animationSpeed, wraparound);
     }
     animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);
@@ -149,7 +149,7 @@ public class AnimatedSprite extends Sprite{
   private void wraparoundHorizontal(){
     if ( super.getLeft() > width ) {
       super.setLeft( -super.getW() );
-    } else if ( super.getRight() < -width ){
+    } else if ( super.getRight() < 0.0 ){
       super.setRight( width );
     }
   }
@@ -158,7 +158,7 @@ public class AnimatedSprite extends Sprite{
   private void wraparoundVertical(){
     if ( super.getTop() > height ) {
       super.setTop( -super.getH() );
-    } else if ( super.getBottom() < -height ){
+    } else if ( super.getBottom() < 0.0 ){
       super.setBottom( height );
     }
   }

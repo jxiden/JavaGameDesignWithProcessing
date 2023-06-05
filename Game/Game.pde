@@ -22,6 +22,8 @@ boolean down = false;
 boolean left = false;
 boolean right = false;
 
+World world = new World("test", bg);
+
 //HexGrid hGrid = new HexGrid(3);
 //import processing.sound.*;
 //SoundFile song;
@@ -52,6 +54,14 @@ void setup() {
 
   imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
+
+  System.out.println("Adding sprites to world...");
+  world.addSpriteCopyTo(ghoul, 100,100);
+  world.addSpriteCopyTo(ghoul, 200, 200);
+  world.addSpriteCopyTo(ghoul, 300, 300);
+  world.printSprites();
+  System.out.println("Done adding sprites..");
+
   
   println("Game started...");
   
@@ -263,6 +273,7 @@ public void updateScreen(){
   //Update other screen elements
   grid.showImages();
   grid.showSprites();
+  world.showSprites();
 
 }
 

@@ -75,7 +75,7 @@ public class World {
     //method to display all the sprites on the screen
     public void showSprites(){
         
-        System.out.println("showing sprites...");
+        //System.out.println("showing sprites...");
         //Loop through all the sprites
         for(AnimatedSprite sprite : sprites){
             sprite.show();        

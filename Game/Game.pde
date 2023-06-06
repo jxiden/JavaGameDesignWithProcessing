@@ -9,8 +9,8 @@ Grid grid = new Grid(10,10);
 PImage bg;
 PImage player1;
 PImage endScreen;
-String titleText = "Peter the Horse is here";
-String extraText = "Whose Turn?";
+String titleText = "Dungeon Knight";
+String extraText = "Room 1";
 AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
 AnimatedSprite player;
@@ -55,12 +55,12 @@ void setup() {
   imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
 
-  System.out.println("Adding sprites to world...");
-  world.addSpriteCopyTo(ghoul, 100,100);
-  world.addSpriteCopyTo(ghoul, 200, 200);
-  world.addSpriteCopyTo(ghoul, 300, 300);
-  world.printSprites();
-  System.out.println("Done adding sprites..");
+  // System.out.println("Adding sprites to world...");
+  // world.addSpriteCopyTo(ghoul, 100,100);
+  // world.addSpriteCopyTo(ghoul, 200, 200);
+  // world.addSpriteCopyTo(ghoul, 300, 300);
+  // world.printSprites();
+  // System.out.println("Done adding sprites..");
 
   
   println("Game started...");
@@ -87,6 +87,9 @@ void draw() {
   checkExampleAnimation();
   //System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
   //world.printSprites();
+  //System.out.println(ghoul.getHealth());
+  System.out.println("xD: " + (ghoul.getCenterX()-player.getCenterX()));
+  System.out.println("yD: " + (ghoul.getCenterY()-player.getCenterY()));
   
   msElapsed +=1;
   grid.pause(1);
@@ -107,7 +110,7 @@ void keyPressed() {
   // A KEY (LEFT)
   if(keyCode == 65 || keyCode == 37) {
     if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_up.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_left.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_left.json");
+      player = new AnimatedSprite("sprites/slime_left.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_left.json", player.getHealth());
     }
     left = true;
   }
@@ -115,7 +118,7 @@ void keyPressed() {
   // W KEY (UP)
   else if(keyCode == 87 || keyCode == 38) {
     if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_up.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_up.json");
+      player = new AnimatedSprite("sprites/slime_up.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_up.json", player.getHealth());
     }
     up = true;
   }
@@ -123,7 +126,7 @@ void keyPressed() {
   // D KEY (RIGHT)
   else if(keyCode == 68 || keyCode == 39) {
     if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_up.json")) {
-      player = new AnimatedSprite("sprites/slime_right.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_right.json");
+      player = new AnimatedSprite("sprites/slime_right.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_right.json", player.getHealth());
     }
     right = true;
   }
@@ -131,11 +134,18 @@ void keyPressed() {
   // S KEY (DOWN)
   else if(keyCode == 83 || keyCode == 40) {
     if (player.getJsonFile().equals("sprites/slime_up.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_down.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_down.json");
+      player = new AnimatedSprite("sprites/slime_down.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_down.json", player.getHealth());
     }
     down = true;
   }
-   
+
+  // P/Z KEYS (PUNCH)
+   else if(keyCode == 80 || keyCode == 90) {
+    // for each monster in the arraylist
+    // run a punch method (player, each monster)
+    player.attack(ghoul);
+   }
+
   // HORIZONTAL
   // player left method
   if (left == true && right == false) {
@@ -333,7 +343,11 @@ public void moveSprites(){
 //Method to handle the collisions between Sprites on the Screen
 public void handleCollisions(){
   if(player.getTop() < ghoul.getBottom() && player.getBottom() > ghoul.getTop() && player.getRight() > ghoul.getLeft() && player.getLeft() < ghoul.getRight()) {
-    System.out.println("Collision!!!!!");
+    //System.out.println("Collision!!!!!");
+    ghoul.attack(player);
+  }
+
+  if (player.getHealth() == 0) {
     gameOver = true;
   }
 
@@ -377,10 +391,10 @@ public void endGame(){
 //example method that creates 5 horses along the screen
 public void animationSetup(){  
   int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json");
-  exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
-  player = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json");
-  ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json");
+  exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json", 5);
+  exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json", 5);
+  player = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json", 5);
+  ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", 5);
 }
 
 //example method that animates the horse Sprites
@@ -391,17 +405,25 @@ public void checkExampleAnimation(){
     exampleSprite2.animateHorizontal(1.0, 3.0, true);
   }
   player.animate(0.1);
-  ghoul.animateToPlayer(player, 1.0, true);
+
+  if (ghoul.getHealth() == 0) {
+    ghoul.setCenterX(-600);
+    ghoul.setCenterY(-600);
+    ghoul.animateMove(0.0, 0.0, 0.0, false);
+  }
+  else {
+    ghoul.animateToPlayer(player, 1.0, true);
+  }
 
   for (AnimatedSprite g : world.getSprites()) {
     g.animateToPlayer(player, 1.0, true);
   }
 
   if (ghoul.getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > ghoul.getCenterX()) {
-    ghoul = new AnimatedSprite("sprites/ghoul_right.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_right.json");
+    ghoul = new AnimatedSprite("sprites/ghoul_right.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_right.json", ghoul.getHealth());
   }
   if (ghoul.getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < ghoul.getCenterX()) {
-    ghoul = new AnimatedSprite("sprites/ghoul_left.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_left.json");
+    ghoul = new AnimatedSprite("sprites/ghoul_left.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_left.json", ghoul.getHealth());
   }
 
   //Difference Testing Code:

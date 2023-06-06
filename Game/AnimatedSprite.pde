@@ -17,12 +17,13 @@ public class AnimatedSprite extends Sprite{
     private int len;
     private float iBucket;
     private float aSpeed; //variable to track how quickly the animation images cycle
+    private int health;
 
     JSONObject spriteData;
     PImage spriteSheet;
 
   // Constructor #1 for AnimatedSprite with Spritesheet (Must use the TexturePacker to make the JSON)
-  public AnimatedSprite(String png, String json, float x, float y, float aSpeed) {
+  public AnimatedSprite(String png, String json, float x, float y, float aSpeed, int health) {
     super(png, x, y, 1.0, true);
     
     this.jsonFile = json;
@@ -32,23 +33,24 @@ public class AnimatedSprite extends Sprite{
     super.setH(this.animation.get(0).height);
     super.setLeft(x);
     super.setTop(y);
+    this.health = health;
     //System.out.println("AS w: " + super.getW() + ",h: " + super.getH());
 
   }
 
   //Constructor #2: animations + starting coordinates
-  public AnimatedSprite(String png, String json, float x, float y ) {
-    this(png, json, x, y, 1.0);
+  public AnimatedSprite(String png, String json, float x, float y, int health) {
+    this(png, json, x, y, 1.0, health);
   }
 
   // Constructor #3 taking in images and json only
-  public AnimatedSprite(String png, String json) {
-    this(png, 0.0, 0.0, json);
+  public AnimatedSprite(String png, String json, int health) {
+    this(png, 0.0, 0.0, json, health);
   }
 
   // Legacy Constructor for 2022 version
-  public AnimatedSprite(String png, float x, float y, String json) {
-    this(png, json, x, y);
+  public AnimatedSprite(String png, float x, float y, String json, int health) {
+    this(png, json, x, y, health);
   }
 
 
@@ -133,13 +135,46 @@ public class AnimatedSprite extends Sprite{
   //Method to copy an AnimatedSprite
   public AnimatedSprite copy(){
     //super.copy();
-    return new AnimatedSprite(this.pngFile, this.jsonFile, super.getLeft(), super.getTop(), this.aSpeed);
+    return new AnimatedSprite(this.pngFile, this.jsonFile, super.getLeft(), super.getTop(), this.aSpeed, this.health);
   }
   
   //Method to copy an AnimatedSprite to a specific location
   public AnimatedSprite copyTo(float x, float y){
     //super.copy();
-    return new AnimatedSprite(this.pngFile, this.jsonFile, x, y, this.aSpeed);
+    return new AnimatedSprite(this.pngFile, this.jsonFile, x, y, this.aSpeed, this.health);
+  }
+
+  public int getHealth() {
+    return health;
+  }
+
+  public void setHealth(int newHealth) {
+    health = newHealth;
+  }
+
+  public void attack(AnimatedSprite target) {
+    float xD = target.getCenterX() - this.getCenterX();
+    float yD = target.getCenterY() - this.getCenterY();
+    if ((xD >= 0.0 && xD <= 50.0) || (xD <= 0.0 && xD >= -50.0) || (yD >= 0.0 && yD <= 50.0) || (yD <= 0.0 && yD >= -50.0)) {
+      target.setHealth(target.getHealth()-1);
+      
+      // If player is to the right of target, target moves to the left.
+      if (xD >= 0.0 && xD <= 50.0) {
+        target.animateMove(10.0, 0.0, 0.1, true);
+      }
+
+      if (xD <= 0.0 && xD >= -50.0) {
+        target.animateMove(-10.0, 0.0, 0.1, true);
+      }
+
+      if (yD >= 0.0 && yD <= 50.0) {
+        target.animateMove(0.0, 10.0, 0.1, true);
+      }
+
+      if (yD <= 0.0 && yD >= -50.0) {
+        target.animateMove(0.0, -10.0, 0.1, true);
+      }
+    }
   }
   
 

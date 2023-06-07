@@ -388,6 +388,13 @@ public void handleCollisions(){
     ghoul.attack(player);
   }
 
+  for (AnimatedSprite g : currentWorld.getSprites()) {
+    if(player.getTop() < g.getBottom() && player.getBottom() > g.getTop() && player.getRight() > g.getLeft() && player.getLeft() < g.getRight()) {
+      //System.out.println("Collision!!!!!");
+      g.attack(player);
+    }
+  }
+
   if (player.getHealth() == 0) {
     gameOver = true;
   }

@@ -9,6 +9,7 @@
 private int msElapsed = 0;
 String titleText = "Dungeon Knight";
 String extraText = "Room 1";
+int roomNum = 1;
 
 //Screens
 Screen currentScreen;
@@ -90,7 +91,7 @@ void setup() {
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
-  
+
   imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
   println("Game started...");
@@ -114,7 +115,7 @@ void draw() {
     endGame();
   }
 
-  //System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
+  System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
   //world.printSprites();
   //System.out.println(ghoul.getHealth());
   System.out.println("xD: " + (ghoul.getCenterX()-player.getCenterX()));
@@ -170,9 +171,10 @@ void keyPressed() {
 
   // P/Z KEYS (PUNCH)
    else if(keyCode == 80 || keyCode == 90) {
-    // for each monster in the arraylist
-    // run a punch method (player, each monster)
     player.attack(ghoul);
+    for (AnimatedSprite g : currentWorld.getSprites()) {
+      player.attack(g);
+    }
    }
 
   // HORIZONTAL
@@ -313,7 +315,9 @@ public void updateScreen(){
     checkAnimations();
     
     if (player.getCenterY() >= currentScreen.getBg().height) {
-      extraText = "Room 2";
+      roomNum++;
+      extraText = "Room " + roomNum;
+      currentWorld.addSpriteCopyTo(ghoul, 200, 200);
     }
 
     //Update other screen elements
@@ -390,7 +394,7 @@ public void handleCollisions(){
 
   // WALL COLLISIONS
 
-  if (ghoul.getHealth() == 0) {
+  if (ghoul.getHealth() == 5) {
     if (player.getTop() < 80) {
       player.animateMove(0.0, 1.25, 0.1, true);
     }
@@ -407,22 +411,23 @@ public void handleCollisions(){
       player.animateMove(-1.25, 0.0, 0.1, true);
     }
   }
+
   else {
     if (player.getTop() < 80) {
       player.animateMove(0.0, 1.25, 0.1, true);
     }
 
-  if (player.getBottom() >   currentScreen.getBg().height-80.0) {
-    player.animateMove(0.0, -1.25, 0.1, true);
-  }
+    if (player.getBottom() > currentScreen.getBg().height-80.0) {
+      player.animateMove(0.0, -1.25, 0.1, true);
+    }
 
     if (player.getLeft() < 80.0) {
       player.animateMove(1.25, 0.0, 0.1, true);
     }
 
-  if (player.getRight() > currentScreen.getBg().width-80.0) {
-    player.animateMove(-1.25, 0.0, 0.1, true);
-  }
+    if (player.getRight() > currentScreen.getBg().width-80.0) {
+      player.animateMove(-1.25, 0.0, 0.1, true);
+    }
   }
 }
 
@@ -470,11 +475,19 @@ public void checkAnimations(){
     ghoul.animateMove(0.0, 0.0, 0.0, false);
   }
   else {
-    ghoul.animateToPlayer(player, 1.0, true);
+    //ghoul.animateToPlayer(player, 1.0, true);
+    ghoul.animate(1.0);
   }
 
   for (AnimatedSprite g : currentWorld.getSprites()) {
-    g.animateToPlayer(player, 1.0, true);
+    if (g.getHealth() == 0) {
+      g.setCenterX(-600);
+      g.setCenterY(-600);
+      g.animateMove(0.0, 0.0, 0.0, false);
+    }
+    else {
+      g.animateToPlayer(player, 1.0, true);
+    }
   }
 
   //Switch direction of ghoul image

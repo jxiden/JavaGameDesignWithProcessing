@@ -285,7 +285,7 @@ public void updateScreen(){
   //Update other screen elements
   grid.showImages();
   grid.showSprites();
-  world.showSprites();
+  grid.showGridSprites();
 
 }
 

@@ -268,6 +268,10 @@ public void updateScreen(){
   //update the background
   background(bg);
 
+  if (player.getCenterY() >= bg.height) {
+    extraText = "Room 2";
+  }
+
   //Display the Player1 image
   //GridLocation player1Loc = new GridLocation(player1Row,player1Col);
   //grid.setTileImage(player1Loc, player1);
@@ -352,20 +356,40 @@ public void handleCollisions(){
   }
 
   // WALL COLLISIONS
-  if (player.getTop() < 80) {
-    player.animateMove(0.0, 1.25, 0.1, true);
-  }
 
-  if (player.getBottom() > bg.height-80.0) {
-    player.animateMove(0.0, -1.25, 0.1, true);
-  }
+  if (ghoul.getHealth() == 0) {
+    if (player.getTop() < 80) {
+      player.animateMove(0.0, 1.25, 0.1, true);
+    }
 
-  if (player.getLeft() < 80.0) {
-    player.animateMove(1.25, 0.0, 0.1, true);
-  }
+    if (player.getBottom() > bg.height-80.0 && (player.getCenterX() <= 400 || player.getCenterX() >= 560)) {
+      player.animateMove(0.0, -1.25, 0.1, true);
+    }
 
-  if (player.getRight() > bg.width-80.0) {
-    player.animateMove(-1.25, 0.0, 0.1, true);
+    if (player.getLeft() < 80.0) {
+      player.animateMove(1.25, 0.0, 0.1, true);
+    }
+
+    if (player.getRight() > bg.width-80.0) {
+      player.animateMove(-1.25, 0.0, 0.1, true);
+    }
+  }
+  else {
+    if (player.getTop() < 80) {
+      player.animateMove(0.0, 1.25, 0.1, true);
+    }
+
+    if (player.getBottom() > bg.height-80.0) {
+      player.animateMove(0.0, -1.25, 0.1, true);
+    }
+
+    if (player.getLeft() < 80.0) {
+      player.animateMove(1.25, 0.0, 0.1, true);
+    }
+
+    if (player.getRight() > bg.width-80.0) {
+      player.animateMove(-1.25, 0.0, 0.1, true);
+    }
   }
 }
 

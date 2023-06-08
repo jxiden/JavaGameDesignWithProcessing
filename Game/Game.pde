@@ -25,6 +25,8 @@ PImage splashBg;
 Grid mainGrid;
 String mainBgFile = "images/walls_and_floor.png";
 PImage mainBg;
+String doorBgFile = "images/door_open.png";
+PImage doorBg;
 
 AnimatedSprite player;
 PImage player1;
@@ -73,6 +75,8 @@ void setup() {
   splashBg.resize(960, 720);
   mainBg = loadImage(mainBgFile);
   mainBg.resize(960, 720);
+  doorBg = loadImage(doorBgFile);
+  doorBg.resize(960,720);
   endBg = loadImage(endBgFile);
   endBg.resize(960, 720);
 
@@ -118,8 +122,8 @@ void draw() {
   System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
   //world.printSprites();
   //System.out.println(ghoul.getHealth());
-  System.out.println("xD: " + (ghoul.getCenterX()-player.getCenterX()));
-  System.out.println("yD: " + (ghoul.getCenterY()-player.getCenterY()));
+  //System.out.println("xD: " + (ghoul.getCenterX()-player.getCenterX()));
+  //System.out.println("yD: " + (ghoul.getCenterY()-player.getCenterY()));
   
   msElapsed +=1;
   currentScreen.pause(1);
@@ -312,11 +316,14 @@ public void updateScreen(){
     currentWorld = mainGrid;
 
     checkAnimations();
-    /**
+    
     if (currentWorld.checkHealth()) {
-      currentScreen.setBg()
+      currentScreen.setBg(doorBg);
     }
-    **/
+    else {
+      currentScreen.setBg(mainBg);
+    }
+    
 
     // If the player is offscreen, update the room number, title bar.
     // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
@@ -324,6 +331,7 @@ public void updateScreen(){
     if (player.getCenterY() >= currentScreen.getBg().height) {
       roomNum++;
       extraText = "Room " + roomNum;
+      currentScreen.pause(10);
       currentWorld.addSpriteCopyTo(ghoul, 200, 200);
     }
 

@@ -104,7 +104,7 @@ public class AnimatedSprite extends Sprite{
     animateMove(0, verticalSpeed, animationSpeed, wraparound);
   }
 
-  //NIKO + JAIDEN
+  // Makes this track player based on distance. When close, this rushes at player. (Authors: Niko B, Jaiden K)
   public void animateToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
     float xDifference = player.getCenterX() - this.getCenterX();
     float yDifference = player.getCenterY() - this.getCenterY();
@@ -144,14 +144,17 @@ public class AnimatedSprite extends Sprite{
     return new AnimatedSprite(this.pngFile, this.jsonFile, x, y, this.aSpeed, this.health);
   }
 
+  // Returns the health
   public int getHealth() {
     return health;
   }
 
+  // Sets the health to newHealth
   public void setHealth(int newHealth) {
     health = newHealth;
   }
 
+  // Makes this attack target if in a certain range, also applies knockback
   public void attack(AnimatedSprite target) {
     float xD = target.getCenterX() - this.getCenterX();
     float yD = target.getCenterY() - this.getCenterY();

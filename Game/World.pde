@@ -76,6 +76,17 @@ public class World extends Screen{
       }
   }
 
+  // Checks the health of all the AnimatedSprites in sprites
+  // If all sprites are dead, return true.
+  public boolean checkHealth() {
+    for (AnimatedSprite s : sprites) {
+      if (s.getHealth() != 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 
   //WORLD MUTATOR METHODS
   

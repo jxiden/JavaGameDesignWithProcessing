@@ -126,7 +126,7 @@ void draw() {
 
 }
 
-// Known Processing method that automatically will run whenever a key is pressed
+// Processing method that automatically will run whenever a key is pressed
 // Based off of "Programming Keyboard Movement in Processing" by John McCaffrey
 // https://youtu.be/ELyioGdxUZU
 void keyPressed() {
@@ -171,7 +171,6 @@ void keyPressed() {
 
   // P/Z KEYS (PUNCH)
    else if(keyCode == 80 || keyCode == 90) {
-    player.attack(ghoul);
     for (AnimatedSprite g : currentWorld.getSprites()) {
       player.attack(g);
     }
@@ -313,7 +312,15 @@ public void updateScreen(){
     currentWorld = mainGrid;
 
     checkAnimations();
-    
+    /**
+    if (currentWorld.checkHealth()) {
+      currentScreen.setBg()
+    }
+    **/
+
+    // If the player is offscreen, update the room number, title bar.
+    // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
+    // PLANNED: RNG rooms. If roomType = something, spawn specific types of enemies in specific amounts
     if (player.getCenterY() >= currentScreen.getBg().height) {
       roomNum++;
       extraText = "Room " + roomNum;
@@ -325,13 +332,11 @@ public void updateScreen(){
     mainGrid.showSprites();
     mainGrid.showGridSprites();
   }
-
-  //Other Screns?
-
 }
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
+  // This was a bunch of testing code that didn't work
   /**
   float randX = (float) (Math.abs(Math.random()*bg.width));
   float randY = (float) (Math.abs(Math.random()*bg.height));
@@ -383,59 +388,63 @@ public void moveSprites(){
 
 //Method to handle the collisions between Sprites on the Screen
 public void handleCollisions(){
+  /**
   if(player.getTop() < ghoul.getBottom() && player.getBottom() > ghoul.getTop() && player.getRight() > ghoul.getLeft() && player.getLeft() < ghoul.getRight()) {
-    //System.out.println("Collision!!!!!");
     ghoul.attack(player);
   }
+  **/
 
+  // Constantly loop through all the sprites in the room to check if they can attack the player
   if (currentScreen != splashScreen) {
     for (AnimatedSprite g : currentWorld.getSprites()) {
       if(player.getTop() < g.getBottom() && player.getBottom() > g.getTop() && player.getRight() > g.getLeft() && player.getLeft() < g.getRight()) {
-        //System.out.println("Collision!!!!!");
         g.attack(player);
       }
     }
   }
 
+  // If the player's health is 0, gameOver is true.
   if (player.getHealth() == 0) {
     gameOver = true;
   }
 
   // WALL COLLISIONS
+  if (currentScreen != splashScreen) {
+    boolean dead = currentWorld.checkHealth();
+    if (dead) {
+      if (player.getTop() < 80) {
+        player.animateMove(0.0, 1.25, 0.1, true);
+      }
 
-  if (ghoul.getHealth() == 5) {
-    if (player.getTop() < 80) {
-      player.animateMove(0.0, 1.25, 0.1, true);
+      if (player.getBottom() > currentScreen.getBg().height-80.0 && (player.getCenterX() <= 400 || player.getCenterX() >= 560)) {
+        player.animateMove(0.0, -1.25, 0.1, true);
+      }
+
+      if (player.getLeft() < 80.0) {
+        player.animateMove(1.25, 0.0, 0.1, true);
+      }
+
+      if (player.getRight() > currentScreen.getBg().width-80.0) {
+        player.animateMove(-1.25, 0.0, 0.1, true);
+      }
     }
 
-    if (player.getBottom() > currentScreen.getBg().height-80.0 && (player.getCenterX() <= 400 || player.getCenterX() >= 560)) {
-      player.animateMove(0.0, -1.25, 0.1, true);
-    }
+    else {
+      if (player.getTop() < 80) {
+        player.animateMove(0.0, 1.25, 0.1, true);
+      }
 
-    if (player.getLeft() < 80.0) {
-      player.animateMove(1.25, 0.0, 0.1, true);
-    }
+      if (player.getBottom() > currentScreen.getBg().height-80.0) {
+        player.animateMove(0.0, -1.25, 0.1, true);
+      }
 
-    if (player.getRight() > currentScreen.getBg().width-80.0) {
-      player.animateMove(-1.25, 0.0, 0.1, true);
-    }
-  }
+      if (player.getLeft() < 80.0) {
+        player.animateMove(1.25, 0.0, 0.1, true);
+      }
 
-  else {
-    if (player.getTop() < 80) {
-      player.animateMove(0.0, 1.25, 0.1, true);
-    }
-
-    if (player.getBottom() > currentScreen.getBg().height-80.0) {
-      player.animateMove(0.0, -1.25, 0.1, true);
-    }
-
-    if (player.getLeft() < 80.0) {
-      player.animateMove(1.25, 0.0, 0.1, true);
-    }
-
-    if (player.getRight() > currentScreen.getBg().width-80.0) {
-      player.animateMove(-1.25, 0.0, 0.1, true);
+      if (player.getRight() > currentScreen.getBg().width-80.0) {
+        player.animateMove(-1.25, 0.0, 0.1, true);
+      }
     }
   }
 }
@@ -445,49 +454,29 @@ public boolean isGameOver(){
   if (gameOver) {
     return true;
   }
-  return false; //by default, the game is never over
+  return false;
 }
 
 //method to describe what happens after the game is over
 public void endGame(){
-    //System.out.println("Game Over!");
-
-    //Update the title bar
-
-    //Show any end imagery
-        currentScreen = endScreen;
-        //image(endScreen, 100,100);
-
+  //Show any end imagery
+    currentScreen = endScreen;
+    //image(endScreen, 100,100);
 }
 
-//example method that creates 5 horses along the screen
+// Constructs the player, master ghoul
 public void animationSetup(){  
-  int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/ice_horse_run.png", 50.0, i*75.0, "sprites/ice_horse_run.json", 5);
-  exampleSprite2 = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json", 5);
   player = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json", 5);
-  ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", 5);
+  ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
 }
 
-//example method that animates the horse Sprites
-// move speed, animation speed, wrap around
+// Constantly checks if the animations should be happening, and what type of animations should occur
 public void checkAnimations(){
-  if(doAnimation){
-    exampleSprite.animateVertical(1.0, 3.0, true);
-    exampleSprite2.animateHorizontal(1.0, 3.0, true);
-  }
+  // Animate player, master ghoul
   player.animate(0.1);
+  ghoul.animate(1.0);
 
-  if (ghoul.getHealth() == 0) {
-    ghoul.setCenterX(-600);
-    ghoul.setCenterY(-600);
-    ghoul.animateMove(0.0, 0.0, 0.0, false);
-  }
-  else {
-    //ghoul.animateToPlayer(player, 1.0, true);
-    ghoul.animate(1.0);
-  }
-
+  // Check ghoul copies animation for if they're dead or not
   for (AnimatedSprite g : currentWorld.getSprites()) {
     if (g.getHealth() == 0) {
       g.setCenterX(-600);
@@ -499,12 +488,25 @@ public void checkAnimations(){
     }
   }
 
-  //Switch direction of ghoul image
+  // Switch direction of master ghoul image
   if (ghoul.getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > ghoul.getCenterX()) {
     ghoul = new AnimatedSprite("sprites/ghoul_right.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_right.json", ghoul.getHealth());
   }
   if (ghoul.getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < ghoul.getCenterX()) {
     ghoul = new AnimatedSprite("sprites/ghoul_left.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_left.json", ghoul.getHealth());
+  }
+
+  // Switch direction of appearance of ghoul copies
+  if (currentScreen != splashScreen) {
+    for (int i = 0; i < currentWorld.getSprites().size(); i++) {
+      if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
+        currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_right.json", currentWorld.getSprites().get(i).getHealth()));
+      }
+
+      if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < currentWorld.getSprites().get(i).getCenterX()) {
+        currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_left.json", currentWorld.getSprites().get(i).getHealth()));
+      }
+    }
   }
 
   //Difference Testing Code:

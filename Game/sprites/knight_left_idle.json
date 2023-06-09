@@ -1,0 +1,115 @@
+{
+  "frames": [
+    {
+      "filename": "LknightidleF0.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 62
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 2,
+        "w": 22,
+        "h": 62
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "LknightidleF1.png",
+      "frame": {
+        "x": 0,
+        "y": 62,
+        "w": 22,
+        "h": 60
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 4,
+        "w": 22,
+        "h": 60
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "LknightidleF2.png",
+      "frame": {
+        "x": 0,
+        "y": 122,
+        "w": 22,
+        "h": 58
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 6,
+        "w": 22,
+        "h": 58
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "LknightidleF3.png",
+      "frame": {
+        "x": 0,
+        "y": 62,
+        "w": 22,
+        "h": 60
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 4,
+        "w": 22,
+        "h": 60
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "knight_left_idle.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 22,
+      "h": 180
+    },
+    "scale": 1
+  }
+}

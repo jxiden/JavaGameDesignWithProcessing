@@ -143,32 +143,32 @@ void keyPressed() {
    
   // A KEY (LEFT)
   if(keyCode == 65 || keyCode == 37) {
-    if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_up.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_left.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_left.json", player.getHealth());
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+      player = new AnimatedSprite("sprites/knight_left_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_left_idle.json", player.getHealth());
     }
     left = true;
   }
 
   // W KEY (UP)
   else if(keyCode == 87 || keyCode == 38) {
-    if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_up.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_up.json", player.getHealth());
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+      player = new AnimatedSprite("sprites/knight_up_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_up_idle.json", player.getHealth());
     }
     up = true;
   }
 
   // D KEY (RIGHT)
   else if(keyCode == 68 || keyCode == 39) {
-    if (player.getJsonFile().equals("sprites/slime_down.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_up.json")) {
-      player = new AnimatedSprite("sprites/slime_right.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_right.json", player.getHealth());
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json")) {
+      player = new AnimatedSprite("sprites/knight_right_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_right_idle.json", player.getHealth());
     }
     right = true;
   }
    
   // S KEY (DOWN)
   else if(keyCode == 83 || keyCode == 40) {
-    if (player.getJsonFile().equals("sprites/slime_up.json") || player.getJsonFile().equals("sprites/slime_left.json") || player.getJsonFile().equals("sprites/slime_right.json")) {
-      player = new AnimatedSprite("sprites/slime_down.png", player.getCenterX()-10.5, player.getCenterY()-7.5, "sprites/slime_down.json", player.getHealth());
+    if (player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+      player = new AnimatedSprite("sprites/knight_down_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_down_idle.json", player.getHealth());
     }
     down = true;
   }
@@ -328,10 +328,10 @@ public void updateScreen(){
     // If the player is offscreen, update the room number, title bar.
     // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
     // PLANNED: RNG rooms. If roomType = something, spawn specific types of enemies in specific amounts
-    if (player.getCenterY() >= currentScreen.getBg().height) {
+    if (player.getCenterY() >= (currentScreen.getBg().height+20.0)) {
       roomNum++;
       extraText = "Room " + roomNum;
-      currentScreen.pause(10);
+      currentScreen.pause(20);
       currentWorld.addSpriteCopyTo(ghoul, 200, 200);
     }
 
@@ -474,7 +474,7 @@ public void endGame(){
 
 // Constructs the player, master ghoul
 public void animationSetup(){  
-  player = new AnimatedSprite("sprites/slime_down.png", 400.0, 400.0, "sprites/slime_down.json", 5);
+  player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
 }
 

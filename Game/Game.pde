@@ -28,6 +28,7 @@ String mainBgFile = "images/walls_and_floor.png";
 PImage mainBg;
 String doorBgFile = "images/door_open.png";
 PImage doorBg;
+Sprite healthBar;
 
 AnimatedSprite player;
 AnimatedSprite ghoul;
@@ -282,76 +283,81 @@ public void updateScreen(){
   //skyGrid Screen Updates
   if(currentScreen == mainGrid){
     currentWorld = mainGrid;
-
-    checkAnimations();
     
-    if (currentWorld.checkHealth()) {
-      currentScreen.setBg(doorBg);
-    }
-    else {
-      currentScreen.setBg(mainBg);
-    }
+  // Switch the image of healthBar from health1 to health0 if player dies
+  if (player.getHealth() == 0 && healthBar.getImagePath().equals("sprites/health1.png")) {
+    healthBar = new Sprite("sprites/health0.png", healthBar.getCenterX(), healthBar.getCenterY());
+  }
+
+  checkAnimations();
+    
+  if (currentWorld.checkHealth()) {
+    currentScreen.setBg(doorBg);
+  }
+  else {
+    currentScreen.setBg(mainBg);
+  }
 
     // If the player is offscreen, update the room number, title bar
-    if (player.getCenterY() >= (currentScreen.getBg().height+15.0)) {
-      roomNum++;
-      extraText = "Room " + roomNum;
-      currentScreen.pause(20);
+  if (player.getCenterY() >= (currentScreen.getBg().height+15.0)) {
+    roomNum++;
+    extraText = "Room " + roomNum;
+    currentScreen.pause(20);
 
-      // Create rooms based on the random number roomBag
-      int roomBag = (int) (Math.random()*5);
+    // Create rooms based on the random number roomBag
+    int roomBag = (int) (Math.random()*5);
 
-      if (roomBag == 0) {
-        currentWorld.addSpriteCopyTo(ghoul, 200, 200);
-        currentWorld.addSpriteCopyTo(ghoul, 200, 400);
-        currentWorld.addSpriteCopyTo(ghoul, 200, 600);
-        currentWorld.addSpriteCopyTo(slime, 700, 300);
-        currentWorld.addSpriteCopyTo(slime, 700, 500);
-      }
-
-      if (roomBag == 1) {
-        currentWorld.addSpriteCopyTo(slime, 200, 500);
-        currentWorld.addSpriteCopyTo(slime, 400, 500);
-        currentWorld.addSpriteCopyTo(slime, 600, 500);
-        currentWorld.addSpriteCopyTo(ghoul, 300, 500);
-        currentWorld.addSpriteCopyTo(ghoul, 500, 500);
-        currentWorld.addSpriteCopyTo(slime, 100, 100);
-        currentWorld.addSpriteCopyTo(slime, 600, 100);
-      }
-
-      if (roomBag == 2) {
-        currentWorld.addSpriteCopyTo(ghoul, 100, 100);
-        currentWorld.addSpriteCopyTo(ghoul, 800, 600);
-        currentWorld.addSpriteCopyTo(ghoul, 800, 100);
-        currentWorld.addSpriteCopyTo(ghoul, 100, 600);
-        currentWorld.addSpriteCopyTo(slime, 400, 400);
-      }
-
-      if (roomBag == 3) {
-        currentWorld.addSpriteCopyTo(slime, 100, 200);
-        currentWorld.addSpriteCopyTo(slime, 100, 400);
-        currentWorld.addSpriteCopyTo(slime, 100, 600);
-        currentWorld.addSpriteCopyTo(slime, 800, 200);
-        currentWorld.addSpriteCopyTo(slime, 800, 400);
-        currentWorld.addSpriteCopyTo(slime, 800, 600);
-        currentWorld.addSpriteCopyTo(slime, 400, 600);
-      }
-
-      if (roomBag == 4) {
-        currentWorld.addSpriteCopyTo(ghoul, 200, 500);
-        currentWorld.addSpriteCopyTo(ghoul, 200, 400);
-        currentWorld.addSpriteCopyTo(ghoul, 200, 300);
-        currentWorld.addSpriteCopyTo(ghoul, 200, 200);
-        currentWorld.addSpriteCopyTo(ghoul, 600, 200);
-        currentWorld.addSpriteCopyTo(ghoul, 600, 300);
-        currentWorld.addSpriteCopyTo(ghoul, 600, 400);
-      }
+    if (roomBag == 0) {
+      currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 600);
+      currentWorld.addSpriteCopyTo(slime, 700, 300);
+      currentWorld.addSpriteCopyTo(slime, 700, 500);
     }
 
-    //Update other screen elements
-    mainGrid.showImages();
-    mainGrid.showSprites();
-    mainGrid.showGridSprites();
+    if (roomBag == 1) {
+      currentWorld.addSpriteCopyTo(slime, 200, 500);
+      currentWorld.addSpriteCopyTo(slime, 400, 500);
+      currentWorld.addSpriteCopyTo(slime, 600, 500);
+      currentWorld.addSpriteCopyTo(ghoul, 300, 500);
+      currentWorld.addSpriteCopyTo(ghoul, 500, 500);
+      currentWorld.addSpriteCopyTo(slime, 100, 100);
+      currentWorld.addSpriteCopyTo(slime, 600, 100);
+    }
+
+    if (roomBag == 2) {
+      currentWorld.addSpriteCopyTo(ghoul, 100, 100);
+      currentWorld.addSpriteCopyTo(ghoul, 800, 600);
+      currentWorld.addSpriteCopyTo(ghoul, 800, 100);
+      currentWorld.addSpriteCopyTo(ghoul, 100, 600);
+      currentWorld.addSpriteCopyTo(slime, 400, 400);
+    }
+
+    if (roomBag == 3) {
+      currentWorld.addSpriteCopyTo(slime, 100, 200);
+      currentWorld.addSpriteCopyTo(slime, 100, 400);
+      currentWorld.addSpriteCopyTo(slime, 100, 600);
+      currentWorld.addSpriteCopyTo(slime, 800, 200);
+      currentWorld.addSpriteCopyTo(slime, 800, 400);
+      currentWorld.addSpriteCopyTo(slime, 800, 600);
+      currentWorld.addSpriteCopyTo(slime, 400, 600);
+    }
+
+    if (roomBag == 4) {
+      currentWorld.addSpriteCopyTo(ghoul, 200, 500);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 300);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+      currentWorld.addSpriteCopyTo(ghoul, 600, 200);
+      currentWorld.addSpriteCopyTo(ghoul, 600, 300);
+      currentWorld.addSpriteCopyTo(ghoul, 600, 400);
+    }
+  }
+
+  //Update other screen elements
+  mainGrid.showImages();
+  mainGrid.showSprites();
+  mainGrid.showGridSprites();
   }
 }
 
@@ -448,6 +454,7 @@ public void animationSetup(){
   player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
   slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
+  healthBar = new Sprite("sprites/health5.png", 90.0, 40.0);
 }
 
 // Constantly checks if the animations should be happening, and what type of animations should occur
@@ -456,6 +463,7 @@ public void checkAnimations(){
   player.animate(0.1);
   ghoul.animate(1.0);
   slime.animate(0.6);
+  healthBar.show();
 
   // Check ghoul copies animation for if they're dead or not. If dead, move off screen and stop animating
   for (AnimatedSprite g : currentWorld.getSprites()) {
@@ -498,14 +506,23 @@ public void checkAnimations(){
     }
   }
 
+  // Switch the image file of healthBar based on player's health
+  if (player.getHealth() == 4 && healthBar.getImagePath().equals("sprites/health5.png")) {
+    healthBar = new Sprite("sprites/health4.png", healthBar.getCenterX(), healthBar.getCenterY());
+  }
+
+  if (player.getHealth() == 3 && healthBar.getImagePath().equals("sprites/health4.png")) {
+    healthBar = new Sprite("sprites/health3.png", healthBar.getCenterX(), healthBar.getCenterY());
+  }
+
+  if (player.getHealth() == 2 && healthBar.getImagePath().equals("sprites/health3.png")) {
+    healthBar = new Sprite("sprites/health2.png", healthBar.getCenterX(), healthBar.getCenterY());
+  }
+
+  if (player.getHealth() == 1 && healthBar.getImagePath().equals("sprites/health2.png")) {
+    healthBar = new Sprite("sprites/health1.png", healthBar.getCenterX(), healthBar.getCenterY());
+  }
+
   //Difference Testing Code:
   //System.out.println("Difference:" + (player.getCenterX() - ghoul.getCenterX()) + ", " + (player.getCenterY() - ghoul.getCenterY()));
-  
-  /**
-  Collision Testing Code:
-  System.out.println("Player Top: " + player.getTop() + " Ghoul Top: " + ghoul.getTop());
-  System.out.println("Player Bottom: " + player.getBottom() + " Ghoul Bottom: " + ghoul.getBottom());
-  System.out.println("Player Left: " + player.getLeft() + " Ghoul Left: " + ghoul.getLeft());
-  System.out.println("Player Right: " + player.getRight() + " Ghoul Right: " + ghoul.getRight());
-  **/
 }

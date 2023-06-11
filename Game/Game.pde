@@ -9,7 +9,7 @@
 private int msElapsed = 0;
 int miniElapsed = 0;
 String titleText = "Dungeon Knight";
-String extraText = "Room 0";
+String extraText = "Starting Room";
 int roomNum = 0;
 
 //Screens
@@ -230,7 +230,7 @@ void keyPressed() {
 //Known Processing method that automatically will run whenever a key is released
 void keyReleased() {
 
-  //check what key was pressed
+  // check what key was pressed
   System.out.println("Key released: " + keyCode); //keyCode gives you an integer for the key
   System.out.println(player.getCenterX() + ", " + player.getCenterY());
 
@@ -292,13 +292,13 @@ public void updateScreen(){
       currentScreen.setBg(mainBg);
     }
 
-    // If the player is offscreen, update the room number, title bar.
-    // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
-    // PLANNED: RNG rooms. If roomType = something, spawn specific types of enemies in specific amounts
+    // If the player is offscreen, update the room number, title bar
     if (player.getCenterY() >= (currentScreen.getBg().height+15.0)) {
       roomNum++;
       extraText = "Room " + roomNum;
       currentScreen.pause(20);
+
+      // Create rooms based on the random number roomBag
       int roomBag = (int) (Math.random()*5);
 
       if (roomBag == 0) {
@@ -334,6 +334,7 @@ public void updateScreen(){
         currentWorld.addSpriteCopyTo(slime, 800, 200);
         currentWorld.addSpriteCopyTo(slime, 800, 400);
         currentWorld.addSpriteCopyTo(slime, 800, 600);
+        currentWorld.addSpriteCopyTo(slime, 400, 600);
       }
 
       if (roomBag == 4) {
@@ -440,7 +441,9 @@ public void endGame(){
     //image(endScreen, 100,100);
 }
 
-// Constructs the player, master ghoul
+// Constructs the player, master ghoul, master slime
+// Note: Ghoul and slime are offscreen because this game uses copies of these two sprites
+// We do not want these master sprites to die, so that the game can function correctly
 public void animationSetup(){  
   player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
@@ -449,12 +452,12 @@ public void animationSetup(){
 
 // Constantly checks if the animations should be happening, and what type of animations should occur
 public void checkAnimations(){
-  // Animate player, master ghoul
+  // Animate player, master ghoul, master slime.
   player.animate(0.1);
   ghoul.animate(1.0);
   slime.animate(0.6);
 
-  // Check ghoul copies animation for if they're dead or not
+  // Check ghoul copies animation for if they're dead or not. If dead, move off screen and stop animating
   for (AnimatedSprite g : currentWorld.getSprites()) {
     if (g.getHealth() == 0) {
       g.setCenterX(-600);
@@ -462,6 +465,7 @@ public void checkAnimations(){
       g.animateMove(0.0, 0.0, 0.0, false);
     }
     else {
+      // If not dead, animate
       if (g.getJsonFile().equals("sprites/ghoul_left.json") || g.getJsonFile().equals("sprites/ghoul_right.json")) {
         g.animateToPlayer(player, 1.0, true);
       }
@@ -472,15 +476,7 @@ public void checkAnimations(){
     }
   }
 
-  // Switch direction of master ghoul image
-  if (ghoul.getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > ghoul.getCenterX()) {
-    ghoul = new AnimatedSprite("sprites/ghoul_right.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_right.json", ghoul.getHealth());
-  }
-  if (ghoul.getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < ghoul.getCenterX()) {
-    ghoul = new AnimatedSprite("sprites/ghoul_left.png", ghoul.getCenterX()-23.5, ghoul.getCenterY()-37.5, "sprites/ghoul_left.json", ghoul.getHealth());
-  }
-
-  // Switch direction of appearance of ghoul copies
+  // Switch direction of appearance of ghoul copies based on player location
   if (currentScreen != splashScreen) {
     for (int i = 0; i < currentWorld.getSprites().size(); i++) {
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
@@ -491,7 +487,7 @@ public void checkAnimations(){
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_left.json", currentWorld.getSprites().get(i).getHealth()));
       }
 
-  // Switch direction of appearance of slime copies
+  // Switch direction of appearance of slime copies based on player location
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/slime_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/slime_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-14.5, "sprites/slime_right.json", currentWorld.getSprites().get(i).getHealth()));
       }

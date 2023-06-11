@@ -114,6 +114,7 @@ public class AnimatedSprite extends Sprite{
     animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);
   }
 
+  // Makes this track player diagonally. Note: Make moveSpeed <1.0 for your own sake :)
   public void rigidToPlayer(AnimatedSprite player, float moveSpeed, float animationSpeed, boolean wraparound) {
     if (player.getCenterX() > this.getCenterX()) {
       animateHorizontal(moveSpeed, animationSpeed, wraparound);

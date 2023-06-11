@@ -7,9 +7,10 @@
 
 //GAME VARIABLES
 private int msElapsed = 0;
+int miniElapsed = 0;
 String titleText = "Dungeon Knight";
-String extraText = "Room 1";
-int roomNum = 1;
+String extraText = "Room 0";
+int roomNum = 0;
 
 //Screens
 Screen currentScreen;
@@ -18,7 +19,7 @@ Grid currentGrid;
 
 //Splash Screen Variables
 Screen splashScreen;
-String splashBgFile = "images/Backrooms-Games.png";
+String splashBgFile = "images/splashScreen.png";
 PImage splashBg;
 
 //main Screen Variables
@@ -29,14 +30,8 @@ String doorBgFile = "images/door_open.png";
 PImage doorBg;
 
 AnimatedSprite player;
-PImage player1;
-String player1File = "images/LetterS.png";
-int player1Row = 3;
-int player1Col = 4;
-int health = 3;
-
-PImage enemy;
 AnimatedSprite ghoul;
+AnimatedSprite slime;
 
 AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
@@ -87,8 +82,6 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites/images
-  player1 = loadImage(player1File);
-  player1.resize(mainGrid.getTileWidthPixels(),mainGrid.getTileHeightPixels());
   animationSetup();
  
   //Other Setup
@@ -328,11 +321,12 @@ public void updateScreen(){
     // If the player is offscreen, update the room number, title bar.
     // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
     // PLANNED: RNG rooms. If roomType = something, spawn specific types of enemies in specific amounts
-    if (player.getCenterY() >= (currentScreen.getBg().height+20.0)) {
+    if (player.getCenterY() >= (currentScreen.getBg().height+15.0)) {
       roomNum++;
       extraText = "Room " + roomNum;
       currentScreen.pause(20);
       currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+      currentWorld.addSpriteCopyTo(slime, 700, 500);
     }
 
     //Update other screen elements
@@ -476,6 +470,7 @@ public void endGame(){
 public void animationSetup(){  
   player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
+  slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
 }
 
 // Constantly checks if the animations should be happening, and what type of animations should occur
@@ -483,6 +478,7 @@ public void checkAnimations(){
   // Animate player, master ghoul
   player.animate(0.1);
   ghoul.animate(1.0);
+  slime.animate(0.6);
 
   // Check ghoul copies animation for if they're dead or not
   for (AnimatedSprite g : currentWorld.getSprites()) {
@@ -492,7 +488,31 @@ public void checkAnimations(){
       g.animateMove(0.0, 0.0, 0.0, false);
     }
     else {
-      g.animateToPlayer(player, 1.0, true);
+      if (g.getJsonFile().equals("sprites/ghoul_left.json") || g.getJsonFile().equals("sprites/ghoul_right.json")) {
+        g.animateToPlayer(player, 1.0, true);
+      }
+
+      if (g.getJsonFile().equals("sprites/slime_left.json") || g.getJsonFile().equals("sprites/slime_right.json")) {
+        // miniElapsed = msElapsed;
+        // while (msElapsed <= miniElapsed + 10) {
+        //   if (player.getCenterX() > g.getCenterX()) {
+        //     g.animateHorizontal(1.0, 0.5, false);
+        //   }
+        //   else {
+        //     g.animateHorizontal(-1.0, 0.5, false);
+        //   }
+        // }
+        // miniElapsed += 10;
+        // while (msElapsed <= miniElapsed) {
+        //   if (player.getCenterY() > g.getCenterY()) {
+        //     g.animateVertical(1.0, 0.5, false);
+        //   }
+        //   else {
+        //     g.animateVertical(-1.0, 0.5, false);
+        //   }
+        // }
+        g.rigidToPlayer(player, 0.6, false);
+      }
     }
   }
 
@@ -513,6 +533,14 @@ public void checkAnimations(){
 
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/ghoul_right.json") && player.getCenterX() < currentWorld.getSprites().get(i).getCenterX()) {
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_left.json", currentWorld.getSprites().get(i).getHealth()));
+      }
+
+      if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/slime_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
+        currentWorld.getSprites().set(i, new AnimatedSprite("sprites/slime_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-14.5, "sprites/slime_right.json", currentWorld.getSprites().get(i).getHealth()));
+      }
+
+      if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/slime_right.json") && player.getCenterX() < currentWorld.getSprites().get(i).getCenterX()) {
+        currentWorld.getSprites().set(i, new AnimatedSprite("sprites/slime_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-14.5, "sprites/slime_left.json", currentWorld.getSprites().get(i).getHealth()));
       }
     }
   }

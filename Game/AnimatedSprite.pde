@@ -114,6 +114,21 @@ public class AnimatedSprite extends Sprite{
     animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);
   }
 
+  public void rigidToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
+    if (player.getCenterX() > this.getCenterX()) {
+      animateHorizontal(0.4, animationSpeed, wraparound);
+    }
+    else {
+      animateHorizontal(-0.4, animationSpeed, wraparound);
+    }
+    if (player.getCenterY() > this.getCenterY()) {
+      animateVertical(0.4, animationSpeed, wraparound);
+    }
+    else {
+      animateVertical(-0.4, animationSpeed, wraparound);
+    }
+  }
+
   //Accessor method for the JSON path
   public String getJsonFile(){
     return this.jsonFile;

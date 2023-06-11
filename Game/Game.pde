@@ -33,6 +33,7 @@ Sprite healthBar;
 AnimatedSprite player;
 AnimatedSprite ghoul;
 AnimatedSprite slime;
+AnimatedSprite glaggle;
 
 AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
@@ -304,9 +305,14 @@ public void updateScreen(){
     extraText = "Room " + roomNum;
     currentScreen.pause(20);
 
+    // 1 in 1000 chance to spawn the glognut :)
+    int theRides = (int) (Math.random()*1000);
+    if (theRides == 0) {
+      currentWorld.addSpriteCopyTo(glaggle, 880, 640);
+    }
+
     // Create rooms based on the random number roomBag
     int roomBag = (int) (Math.random()*5);
-
     if (roomBag == 0) {
       currentWorld.addSpriteCopyTo(ghoul, 200, 200);
       currentWorld.addSpriteCopyTo(ghoul, 200, 400);
@@ -454,6 +460,7 @@ public void animationSetup(){
   player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
   slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
+  glaggle = new AnimatedSprite("sprites/glaggle.png", "sprites/glaggle.json", -600.0, -600.0, 5);
   healthBar = new Sprite("sprites/health5.png", 90.0, 40.0);
 }
 
@@ -463,6 +470,7 @@ public void checkAnimations(){
   player.animate(0.1);
   ghoul.animate(1.0);
   slime.animate(0.6);
+  glaggle.animate(2.0);
   healthBar.show();
 
   // Check ghoul copies animation for if they're dead or not. If dead, move off screen and stop animating
@@ -480,6 +488,10 @@ public void checkAnimations(){
 
       if (g.getJsonFile().equals("sprites/slime_left.json") || g.getJsonFile().equals("sprites/slime_right.json")) {
         g.rigidToPlayer(player, 0.4, 0.6, false);
+      }
+
+      if (g.getJsonFile().equals("sprites/glaggle.json")) {
+        g.rigidToPlayer(player, 0.4, 2.0, false);
       }
     }
   }

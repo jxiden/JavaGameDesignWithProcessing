@@ -257,40 +257,15 @@ void keyReleased() {
 
   //Known Processing method that automatically will run when a mouse click triggers it
   void mouseClicked(){
-  
-    //check if click was successful
-    System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
-    if(currentGrid != null){
-      System.out.println("Grid location: " + currentGrid.getGridLocation());
-    }
-
-    //what to do if clicked? (Make player1 disappear?)
-
-
-    //Toggle the animation on & off
-    doAnimation = !doAnimation;
-    System.out.println("doAnimation: " + doAnimation);
-    if(currentGrid != null){
-      currentGrid.setMark("X",currentGrid.getGridLocation());
-    }
-    
   }
-
-
-
 //------------------ CUSTOM  METHODS --------------------//
 
 //method to update the Title Bar of the Game
 public void updateTitleBar(){
-
   if(!isGameOver()) {
     //set the title each loop
     surface.setTitle(titleText + "    " + extraText);
-
-    //adjust the extra text as desired
-  
   }
-
 }
 
 //method to update what is drawn on the screen each frame
@@ -316,7 +291,6 @@ public void updateScreen(){
     else {
       currentScreen.setBg(mainBg);
     }
-    
 
     // If the player is offscreen, update the room number, title bar.
     // PROBLEMS: Can sometimes cause the room to go up by 2 or up by 0, causing either 2 or 0 enemies to spawn
@@ -325,8 +299,52 @@ public void updateScreen(){
       roomNum++;
       extraText = "Room " + roomNum;
       currentScreen.pause(20);
-      currentWorld.addSpriteCopyTo(ghoul, 200, 200);
-      currentWorld.addSpriteCopyTo(slime, 700, 500);
+      int roomBag = (int) (Math.random()*5);
+
+      if (roomBag == 0) {
+        currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+        currentWorld.addSpriteCopyTo(ghoul, 200, 400);
+        currentWorld.addSpriteCopyTo(ghoul, 200, 600);
+        currentWorld.addSpriteCopyTo(slime, 700, 300);
+        currentWorld.addSpriteCopyTo(slime, 700, 500);
+      }
+
+      if (roomBag == 1) {
+        currentWorld.addSpriteCopyTo(slime, 200, 500);
+        currentWorld.addSpriteCopyTo(slime, 400, 500);
+        currentWorld.addSpriteCopyTo(slime, 600, 500);
+        currentWorld.addSpriteCopyTo(ghoul, 300, 500);
+        currentWorld.addSpriteCopyTo(ghoul, 500, 500);
+        currentWorld.addSpriteCopyTo(slime, 100, 100);
+        currentWorld.addSpriteCopyTo(slime, 600, 100);
+      }
+
+      if (roomBag == 2) {
+        currentWorld.addSpriteCopyTo(ghoul, 100, 100);
+        currentWorld.addSpriteCopyTo(ghoul, 800, 600);
+        currentWorld.addSpriteCopyTo(ghoul, 800, 100);
+        currentWorld.addSpriteCopyTo(ghoul, 100, 600);
+        currentWorld.addSpriteCopyTo(slime, 400, 400);
+      }
+
+      if (roomBag == 3) {
+        currentWorld.addSpriteCopyTo(slime, 100, 200);
+        currentWorld.addSpriteCopyTo(slime, 100, 400);
+        currentWorld.addSpriteCopyTo(slime, 100, 600);
+        currentWorld.addSpriteCopyTo(slime, 800, 200);
+        currentWorld.addSpriteCopyTo(slime, 800, 400);
+        currentWorld.addSpriteCopyTo(slime, 800, 600);
+      }
+
+      if (roomBag == 4) {
+        currentWorld.addSpriteCopyTo(ghoul, 200, 500);
+        currentWorld.addSpriteCopyTo(ghoul, 200, 400);
+        currentWorld.addSpriteCopyTo(ghoul, 200, 300);
+        currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+        currentWorld.addSpriteCopyTo(ghoul, 600, 200);
+        currentWorld.addSpriteCopyTo(ghoul, 600, 300);
+        currentWorld.addSpriteCopyTo(ghoul, 600, 400);
+      }
     }
 
     //Update other screen elements
@@ -338,54 +356,10 @@ public void updateScreen(){
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
-  // This was a bunch of testing code that didn't work
-  /**
-  float randX = (float) (Math.abs(Math.random()*bg.width));
-  float randY = (float) (Math.abs(Math.random()*bg.height));
-  ghoul.setCenterX(randX);
-  ghoul.setCenterY(randY);
-  ghoul.show();
-  **/
-  //ghoul.animate(1.0);
-  //System.out.println("Ghoul spawned:" + randX + ", " + randY);
-  //What is the index for the last column?
-  
-
-  //Loop through all the rows in the last column
-  
-    //Generate a random number
-    
-
-    //10% of the time, decide to add an enemy image to a Tile
-    
-
 }
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
-//Loop through all of the rows & cols in the grid
-  
-      //Store the 2 tile locations to move
-
-      //Check if the current tile has an image that is not player1      
-
-
-        //Get image/sprite from current location
-
-
-        //CASE 1: Collision with player1
-
-
-        //CASE 2: Move enemy over to new location
-
-        
-        //Erase image/sprite from old location
-        
-        //System.out.println(loc + " " + grid.hasTileImage(loc));
-
-
-      //CASE 3: Enemy leaves screen at first column
-
 }
 
 //Method to handle the collisions between Sprites on the Screen
@@ -493,25 +467,7 @@ public void checkAnimations(){
       }
 
       if (g.getJsonFile().equals("sprites/slime_left.json") || g.getJsonFile().equals("sprites/slime_right.json")) {
-        // miniElapsed = msElapsed;
-        // while (msElapsed <= miniElapsed + 10) {
-        //   if (player.getCenterX() > g.getCenterX()) {
-        //     g.animateHorizontal(1.0, 0.5, false);
-        //   }
-        //   else {
-        //     g.animateHorizontal(-1.0, 0.5, false);
-        //   }
-        // }
-        // miniElapsed += 10;
-        // while (msElapsed <= miniElapsed) {
-        //   if (player.getCenterY() > g.getCenterY()) {
-        //     g.animateVertical(1.0, 0.5, false);
-        //   }
-        //   else {
-        //     g.animateVertical(-1.0, 0.5, false);
-        //   }
-        // }
-        g.rigidToPlayer(player, 0.6, false);
+        g.rigidToPlayer(player, 0.4, 0.6, false);
       }
     }
   }
@@ -535,6 +491,7 @@ public void checkAnimations(){
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_left.json", currentWorld.getSprites().get(i).getHealth()));
       }
 
+  // Switch direction of appearance of slime copies
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/slime_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/slime_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-14.5, "sprites/slime_right.json", currentWorld.getSprites().get(i).getHealth()));
       }

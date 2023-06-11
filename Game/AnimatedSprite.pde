@@ -114,18 +114,18 @@ public class AnimatedSprite extends Sprite{
     animateMove(xDifference/1000.0, yDifference/1000.0, animationSpeed, wraparound);
   }
 
-  public void rigidToPlayer(AnimatedSprite player, float animationSpeed, boolean wraparound) {
+  public void rigidToPlayer(AnimatedSprite player, float moveSpeed, float animationSpeed, boolean wraparound) {
     if (player.getCenterX() > this.getCenterX()) {
-      animateHorizontal(0.4, animationSpeed, wraparound);
+      animateHorizontal(moveSpeed, animationSpeed, wraparound);
     }
     else {
-      animateHorizontal(-0.4, animationSpeed, wraparound);
+      animateHorizontal(-moveSpeed, animationSpeed, wraparound);
     }
     if (player.getCenterY() > this.getCenterY()) {
-      animateVertical(0.4, animationSpeed, wraparound);
+      animateVertical(moveSpeed, animationSpeed, wraparound);
     }
     else {
-      animateVertical(-0.4, animationSpeed, wraparound);
+      animateVertical(-moveSpeed, animationSpeed, wraparound);
     }
   }
 

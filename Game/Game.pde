@@ -138,7 +138,7 @@ void keyPressed() {
    
   // A KEY (LEFT)
   if(keyCode == 65 || keyCode == 37) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
       player = new AnimatedSprite("sprites/knight_left_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_left_idle.json", player.getHealth());
     }
     left = true;
@@ -146,7 +146,7 @@ void keyPressed() {
 
   // W KEY (UP)
   else if(keyCode == 87 || keyCode == 38) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
       player = new AnimatedSprite("sprites/knight_up_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_up_idle.json", player.getHealth());
     }
     up = true;
@@ -154,7 +154,7 @@ void keyPressed() {
 
   // D KEY (RIGHT)
   else if(keyCode == 68 || keyCode == 39) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json")) {
+    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
       player = new AnimatedSprite("sprites/knight_right_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_right_idle.json", player.getHealth());
     }
     right = true;
@@ -162,7 +162,7 @@ void keyPressed() {
    
   // S KEY (DOWN)
   else if(keyCode == 83 || keyCode == 40) {
-    if (player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json")) {
+    if (player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
       player = new AnimatedSprite("sprites/knight_down_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_down_idle.json", player.getHealth());
     }
     down = true;
@@ -176,6 +176,7 @@ void keyPressed() {
     for (AnimatedSprite g : currentWorld.getSprites()) {
       player.attack(g);
     }
+    player = new AnimatedSprite("sprites/knight_spin.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_spin.json", player.getHealth());
    }
   }
 
@@ -467,7 +468,7 @@ public void endGame(){
 // Note: Ghoul and slime are offscreen because this game uses copies of these two sprites
 // We do not want these master sprites to die, so that the game can function correctly
 public void animationSetup(){  
-  player = new AnimatedSprite("sprites/knight_down_idle.png", 400.0, 400.0, "sprites/knight_down_idle.json", 5);
+  player = new AnimatedSprite("sprites/knight_down_idle.png", 480.0, 360.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
   slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
   glaggle = new AnimatedSprite("sprites/glaggle.png", "sprites/glaggle.json", -600.0, -600.0, 5);

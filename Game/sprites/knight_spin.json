@@ -1,0 +1,90 @@
+{
+  "frames": [
+    {
+      "filename": "knightSpinF1.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 44,
+        "h": 62
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 2,
+        "w": 44,
+        "h": 62
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "knightSpinF2.png",
+      "frame": {
+        "x": 0,
+        "y": 62,
+        "w": 42,
+        "h": 62
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 2,
+        "w": 42,
+        "h": 62
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "knightSpinF0.png",
+      "frame": {
+        "x": 0,
+        "y": 124,
+        "w": 36,
+        "h": 62
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 2,
+        "w": 36,
+        "h": 62
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "knight_spin.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 44,
+      "h": 186
+    },
+    "scale": 1
+  }
+}

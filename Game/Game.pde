@@ -53,7 +53,7 @@ boolean up = false;
 boolean down = false;
 boolean left = false;
 boolean right = false;
-
+boolean punchFlag = false;
 
 //import processing.sound.*;
 //SoundFile song;
@@ -169,11 +169,15 @@ void keyPressed() {
   }
 
   // P/Z KEYS (PUNCH)
-   else if(keyCode == 80 || keyCode == 90) {
+
+  if (punchFlag == false){
+   if(keyCode == 80 || keyCode == 90) {
+    punchFlag = true;
     for (AnimatedSprite g : currentWorld.getSprites()) {
       player.attack(g);
     }
    }
+  }
 
   // HORIZONTAL
   // player left method
@@ -255,7 +259,13 @@ void keyReleased() {
   else if(keyCode == 83 || keyCode == 40) {
     down = false;
   }
-}
+
+  // P/Z KEYS (PUNCH)
+   if(keyCode == 80 || keyCode == 90) {
+    punchFlag = false;
+   }
+  }
+
 
   //Known Processing method that automatically will run when a mouse click triggers it
   void mouseClicked(){

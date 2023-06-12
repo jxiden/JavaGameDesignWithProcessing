@@ -313,7 +313,7 @@ public void updateScreen(){
     }
 
     // Create rooms based on the random number roomBag
-    int roomBag = (int) (Math.random()*5);
+    int roomBag = (int) (Math.random()*10);
     if (roomBag == 0) {
       currentWorld.addSpriteCopyTo(ghoul, 200, 200);
       currentWorld.addSpriteCopyTo(ghoul, 200, 400);
@@ -362,6 +362,56 @@ public void updateScreen(){
       currentWorld.addSpriteCopyTo(ghoul, 600, 200);
       currentWorld.addSpriteCopyTo(ghoul, 600, 300);
       currentWorld.addSpriteCopyTo(ghoul, 600, 400);
+    }
+
+    if (roomBag == 5) {
+      currentWorld.addSpriteCopyTo(slime, 100, 100);
+      currentWorld.addSpriteCopyTo(slime, 800, 600);
+      currentWorld.addSpriteCopyTo(slime, 800, 100);
+      currentWorld.addSpriteCopyTo(slime, 100, 600);
+      currentWorld.addSpriteCopyTo(ghoul, 400, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 500, 300);
+      currentWorld.addSpriteCopyTo(ghoul, 300, 500);
+    }
+
+    if (roomBag == 6) {
+      currentWorld.addSpriteCopyTo(ghoul, 700, 200);
+      currentWorld.addSpriteCopyTo(ghoul, 700, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 700, 600);
+      currentWorld.addSpriteCopyTo(slime, 200, 300);
+      currentWorld.addSpriteCopyTo(slime, 200, 500);
+      currentWorld.addSpriteCopyTo(slime, 200, 400);
+      currentWorld.addSpriteCopyTo(slime, 200, 200);
+    }
+
+    if (roomBag == 7) {
+      currentWorld.addSpriteCopyTo(ghoul, 100, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 700, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 500, 600);
+      currentWorld.addSpriteCopyTo(ghoul, 500, 200);
+      currentWorld.addSpriteCopyTo(slime, 500, 400);
+      currentWorld.addSpriteCopyTo(slime, 200, 400);
+      currentWorld.addSpriteCopyTo(slime, 600, 400);
+    }
+
+    if (roomBag == 8) {
+      currentWorld.addSpriteCopyTo(ghoul, 100, 650);
+      currentWorld.addSpriteCopyTo(slime, 200, 600);
+      currentWorld.addSpriteCopyTo(ghoul, 300, 500);
+      currentWorld.addSpriteCopyTo(slime, 400, 400);
+      currentWorld.addSpriteCopyTo(ghoul, 500, 300);
+      currentWorld.addSpriteCopyTo(slime, 600, 200);
+      currentWorld.addSpriteCopyTo(ghoul, 700, 150);
+    }
+
+    if (roomBag == 9) {
+      currentWorld.addSpriteCopyTo(slime, 100, 150);
+      currentWorld.addSpriteCopyTo(ghoul, 200, 200);
+      currentWorld.addSpriteCopyTo(slime, 300, 300);
+      currentWorld.addSpriteCopyTo(ghoul, 400, 400);
+      currentWorld.addSpriteCopyTo(slime, 500, 500);
+      currentWorld.addSpriteCopyTo(ghoul, 600, 600);
+      currentWorld.addSpriteCopyTo(slime, 700, 650);
     }
   }
 

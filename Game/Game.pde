@@ -29,6 +29,7 @@ PImage mainBg;
 String doorBgFile = "images/door_open.png";
 PImage doorBg;
 Sprite healthBar;
+Sprite controls;
 
 AnimatedSprite player;
 AnimatedSprite ghoul;
@@ -473,6 +474,7 @@ public void animationSetup(){
   slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
   glaggle = new AnimatedSprite("sprites/glaggle.png", "sprites/glaggle.json", -600.0, -600.0, 5);
   healthBar = new Sprite("sprites/health5.png", 90.0, 40.0);
+  controls = new Sprite("sprites/controls.png", 700.0, 450.0);
 }
 
 // Constantly checks if the animations should be happening, and what type of animations should occur
@@ -483,6 +485,9 @@ public void checkAnimations(){
   slime.animate(0.6);
   glaggle.animate(2.0);
   healthBar.show();
+  if (extraText.equals("Starting Room")) {
+    controls.show();
+  }
 
   // Check ghoul copies animation for if they're dead or not. If dead, move off screen and stop animating
   for (AnimatedSprite g : currentWorld.getSprites()) {

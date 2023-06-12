@@ -174,23 +174,23 @@ public class AnimatedSprite extends Sprite{
   public void attack(AnimatedSprite target) {
     float xD = target.getCenterX() - this.getCenterX();
     float yD = target.getCenterY() - this.getCenterY();
-    if ((xD >= 0.0 && xD <= 55.0) || (xD <= 0.0 && xD >= -55.0) || (yD >= 0.0 && yD <= 55.0) || (yD <= 0.0 && yD >= -55.0)) {
+    if ((xD >= 0.0 && xD <= 60.0) || (xD <= 0.0 && xD >= -60.0) || (yD >= 0.0 && yD <= 60.0) || (yD <= 0.0 && yD >= -60.0)) {
       target.setHealth(target.getHealth()-1);
       
       // If player is to the right of target, target moves to the left.
-      if (xD >= 0.0 && xD <= 55.0) {
+      if (xD >= 0.0 && xD <= 60.0) {
         target.animateMove(10.0, 0.0, 0.1, true);
       }
 
-      if (xD <= 0.0 && xD >= -55.0) {
+      if (xD <= 0.0 && xD >= -60.0) {
         target.animateMove(-10.0, 0.0, 0.1, true);
       }
 
-      if (yD >= 0.0 && yD <= 55.0) {
+      if (yD >= 0.0 && yD <= 60.0) {
         target.animateMove(0.0, 10.0, 0.1, true);
       }
 
-      if (yD <= 0.0 && yD >= -55.0) {
+      if (yD <= 0.0 && yD >= -60.0) {
         target.animateMove(0.0, -10.0, 0.1, true);
       }
     }

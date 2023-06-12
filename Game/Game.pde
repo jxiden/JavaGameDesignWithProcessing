@@ -3,7 +3,7 @@
  * Authors: Niko Baletin, Jaiden Kelly
  */
 
-//import processing.sound.*;
+import processing.sound.*;
 
 // GAME VARIABLES
 private int msElapsed = 0;
@@ -46,7 +46,7 @@ PImage endBg;
 String endBgFile = "images/endscreen.png";
 
 // Example Variables
-//SoundFile song;
+SoundFile song;
 
 boolean gameOver = false;
 boolean up = false;
@@ -83,14 +83,21 @@ void setup() {
   //setup the sprites/images
   animationSetup();
  
+
+  //start the splashscreen
+  updateScreen();
+
   // Sound Setup
   // Load a soundfile from the /data folder of the sketch and play it back
-  // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
-  // song.play();
+  song = new SoundFile(this, "sounds/Dungeon_Knight_Theme.mp3");
+  song.loop();
 
   imageMode(CORNER); // Set Images to read coordinates at corners
   //fullScreen();    // Only use if not using a specfic bg image
   println("Game started...");
+
+  //reset the splash timer
+  splashScreen.resetTimer();
   
 }
 
@@ -278,6 +285,7 @@ public void updateScreen(){
   background(currentScreen.getBg());
 
   //splashScreen update
+  //System.out.println("splashTime" + splashScreen.getScreenTime());
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     currentScreen = mainGrid;
   }

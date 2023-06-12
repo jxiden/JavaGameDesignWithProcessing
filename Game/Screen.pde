@@ -91,5 +91,8 @@ public class Screen {
     public float getScreenTimeSeconds(){
         return getScreenTime() / 1000.0f;
     }
+    public void resetTimer(){
+        startTime = getTotalTime();
+    }
 
 }

@@ -1,28 +1,28 @@
 /* Game Class Starter File
  * Last Edit: 12/13/2022
- * Authors: _____________________
+ * Authors: Niko Baletin, Jaiden Kelly
  */
 
 //import processing.sound.*;
 
-//GAME VARIABLES
+// GAME VARIABLES
 private int msElapsed = 0;
 int miniElapsed = 0;
 String titleText = "Dungeon Knight";
 String extraText = "Starting Room";
 int roomNum = 0;
 
-//Screens
+// Screens
 Screen currentScreen;
 World currentWorld;
 Grid currentGrid;
 
-//Splash Screen Variables
+// Splash Screen Variables
 Screen splashScreen;
 String splashBgFile = "images/splashScreen.png";
 PImage splashBg;
 
-//main Screen Variables
+// Main Screen Variables
 Grid mainGrid;
 String mainBgFile = "images/walls_and_floor.png";
 PImage mainBg;
@@ -40,13 +40,12 @@ AnimatedSprite exampleSprite;
 AnimatedSprite exampleSprite2;
 boolean doAnimation;
 
-//EndScreen variables
+// EndScreen variables
 World endScreen;
 PImage endBg;
 String endBgFile = "images/endscreen.png";
 
-//Example Variables
-//HexGrid hGrid = new HexGrid(3);
+// Example Variables
 //SoundFile song;
 
 boolean gameOver = false;
@@ -56,19 +55,16 @@ boolean left = false;
 boolean right = false;
 boolean punchFlag = false;
 
-//import processing.sound.*;
-//SoundFile song;
-
-//Required Processing method that gets run once
+// Required Processing method that gets run once
 void setup() {
 
-  //Match the screen size to the background image size
+  // Match the screen size to the background image size
   size(960, 720);
 
-  //Set the title on the title bar
+  // Set the title on the title bar
   surface.setTitle(titleText);
 
-  //Load BG images used
+  // Load BG images used
   splashBg = loadImage(splashBgFile);
   splashBg.resize(960, 720);
   mainBg = loadImage(mainBgFile);
@@ -78,7 +74,7 @@ void setup() {
   endBg = loadImage(endBgFile);
   endBg.resize(960, 720);
 
-  //setup the screens/worlds/grids in the Game
+  // Setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
   mainGrid = new Grid("room1", mainBg, 10,10);
   endScreen = new World("end", endBg);
@@ -87,21 +83,20 @@ void setup() {
   //setup the sprites/images
   animationSetup();
  
-  //Other Setup
+  // Sound Setup
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
 
-  imageMode(CORNER);    //Set Images to read coordinates at corners
-  //fullScreen();   //only use if not using a specfic bg image
+  imageMode(CORNER); // Set Images to read coordinates at corners
+  //fullScreen();    // Only use if not using a specfic bg image
   println("Game started...");
   
 }
 
-//Required Processing method that automatically loops
-//(Anything drawn on the screen should be called from here)
+// Required Processing method that automatically loops
+// Anything drawn on the screen should be called from here
 void draw() {
-
   updateTitleBar();
 
   if (msElapsed % 300 == 0) {
@@ -116,14 +111,9 @@ void draw() {
   }
 
   System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
-  //world.printSprites();
-  //System.out.println(ghoul.getHealth());
-  //System.out.println("xD: " + (ghoul.getCenterX()-player.getCenterX()));
-  //System.out.println("yD: " + (ghoul.getCenterY()-player.getCenterY()));
   
   msElapsed +=1;
   currentScreen.pause(1);
-
 }
 
 // Processing method that automatically will run whenever a key is pressed
@@ -180,59 +170,59 @@ void keyPressed() {
     }
   }
 
-  // HORIZONTAL
-  // player left method
-  if (left == true && right == false) {
-    player.animateMove(-0.75, 0.0, 0.1, true);
-  }
+    // HORIZONTAL
+    // player left method
+    if (left == true && right == false) {
+      player.animateMove(-0.75, 0.0, 0.1, true);
+    }
 
-  // player right method
-  if (right == true && left == false) {
-    player.animateMove(0.75, 0.0, 0.1, true);
-  }
+    // player right method
+    if (right == true && left == false) {
+      player.animateMove(0.75, 0.0, 0.1, true);
+    }
 
-  // if left and right are false then dont move
-  if (left == false && right == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
-  }
+    // if left and right are false then dont move
+    if (left == false && right == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
 
-  // VERTICAL
-  // player up method
-  if (up == true && down == false) {
-    player.animateMove(0.0, -0.75, 0.1, true);
-  }
+    // VERTICAL
+    // player up method
+    if (up == true && down == false) {
+      player.animateMove(0.0, -0.75, 0.1, true);
+    }
 
-  // player down method
-  if (down == true && up == false) {
-    player.animateMove(0.0, 0.75, 0.1, true);
-  }
+    // player down method
+    if (down == true && up == false) {
+      player.animateMove(0.0, 0.75, 0.1, true);
+    }
 
-  // if up and down are false then dont move
-  if (down == false && up == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
-  }
+    // if up and down are false then dont move
+    if (down == false && up == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
 
-  // STOP METHODS
-  // stop player up method
-  if (up == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
-  }
+    // STOP METHODS
+    // stop player up method
+    if (up == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
     
-  // stop player down method
-  if (down == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
-  }
+    // stop player down method
+    if (down == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
 
-  // stop player left method
-  if (left == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
-  }
+    // stop player left method
+    if (left == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
 
-  // stop player right method
-  if (right == false) {
-    player.animateMove(0.0, 0.0, 0.1, true);
+    // stop player right method
+    if (right == false) {
+      player.animateMove(0.0, 0.0, 0.1, true);
+    }
   }
-}
 }
 
 //Known Processing method that automatically will run whenever a key is released
@@ -267,7 +257,6 @@ void keyReleased() {
     punchFlag = false;
    }
   }
-
 
   //Known Processing method that automatically will run when a mouse click triggers it
   void mouseClicked(){
@@ -311,7 +300,7 @@ public void updateScreen(){
     currentScreen.setBg(mainBg);
   }
 
-    // If the player is offscreen, update the room number, title bar
+  // If the player is offscreen, update the room number, title bar
   if (player.getCenterY() >= (currentScreen.getBg().height+18.0)) {
     roomNum++;
     extraText = "Room " + roomNum;
@@ -383,11 +372,11 @@ public void updateScreen(){
   }
 }
 
-//Method to populate enemies or other sprites on the screen
+//Method to populate enemies or other sprites on the screen (Not Used)
 public void populateSprites(){
 }
 
-//Method to move around the enemies/sprites on the screen
+//Method to move around the enemies/sprites on the screen (Not Used)
 public void moveSprites(){
 }
 
@@ -448,7 +437,7 @@ public void handleCollisions(){
   }
 }
 
-//method to indicate when the main game is over
+// Method to indicate when the main game is over
 public boolean isGameOver(){
   if (gameOver) {
     return true;
@@ -456,7 +445,7 @@ public boolean isGameOver(){
   return false;
 }
 
-//method to describe what happens after the game is over
+// Method to describe what happens after the game is over
 public void endGame(){
   //Show any end imagery
     currentScreen = endScreen;
@@ -476,7 +465,7 @@ public void animationSetup(){
 }
 
 // Constantly checks if the animations should be happening, and what type of animations should occur
-public void checkAnimations(){
+public void checkAnimations() {
   // Animate player, master ghoul, master slime.
   player.animate(0.1);
   ghoul.animate(1.0);
@@ -510,9 +499,10 @@ public void checkAnimations(){
     }
   }
 
-  // Switch direction of appearance of ghoul copies based on player location
   if (currentScreen != splashScreen) {
     for (int i = 0; i < currentWorld.getSprites().size(); i++) {
+
+      // Switch direction of appearance of ghoul copies based on player location
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/ghoul_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_right.json", currentWorld.getSprites().get(i).getHealth()));
       }
@@ -521,7 +511,7 @@ public void checkAnimations(){
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/ghoul_left.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-37.5, "sprites/ghoul_left.json", currentWorld.getSprites().get(i).getHealth()));
       }
 
-  // Switch direction of appearance of slime copies based on player location
+      // Switch direction of appearance of slime copies based on player location
       if (currentWorld.getSprites().get(i).getJsonFile().equals("sprites/slime_left.json") && player.getCenterX() > currentWorld.getSprites().get(i).getCenterX()) {
         currentWorld.getSprites().set(i, new AnimatedSprite("sprites/slime_right.png", currentWorld.getSprites().get(i).getCenterX()-23.5, currentWorld.getSprites().get(i).getCenterY()-14.5, "sprites/slime_right.json", currentWorld.getSprites().get(i).getHealth()));
       }
@@ -548,7 +538,4 @@ public void checkAnimations(){
   if (player.getHealth() == 1 && healthBar.getImagePath().equals("sprites/health2.png")) {
     healthBar = new Sprite("sprites/health1.png", healthBar.getCenterX(), healthBar.getCenterY());
   }
-
-  //Difference Testing Code:
-  //System.out.println("Difference:" + (player.getCenterX() - ghoul.getCenterX()) + ", " + (player.getCenterY() - ghoul.getCenterY()));
 }

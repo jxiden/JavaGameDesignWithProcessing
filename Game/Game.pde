@@ -43,7 +43,7 @@ boolean doAnimation;
 //EndScreen variables
 World endScreen;
 PImage endBg;
-String endBgFile = "images/youwin.png";
+String endBgFile = "images/endscreen.png";
 
 //Example Variables
 //HexGrid hGrid = new HexGrid(3);
@@ -135,50 +135,49 @@ void keyPressed() {
   System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
   System.out.println(player.getCenterX() + ", " + player.getCenterY());
 
-  //What to do when a key is pressed?
+  // Player should only be able to move in the main screens
+  if (currentScreen != splashScreen && currentScreen != endScreen) {
+    // A KEY (LEFT)
+    if(keyCode == 65 || keyCode == 37) {
+      if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
+        player = new AnimatedSprite("sprites/knight_left_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_left_idle.json", player.getHealth());
+      }
+      left = true;
+    }
+
+    // W KEY (UP)
+    else if(keyCode == 87 || keyCode == 38) {
+      if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
+        player = new AnimatedSprite("sprites/knight_up_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_up_idle.json", player.getHealth());
+      }
+      up = true;
+    }
+
+    // D KEY (RIGHT)
+    else if(keyCode == 68 || keyCode == 39) {
+      if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
+        player = new AnimatedSprite("sprites/knight_right_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_right_idle.json", player.getHealth());
+      }
+      right = true;
+    }
    
-  // A KEY (LEFT)
-  if(keyCode == 65 || keyCode == 37) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
-      player = new AnimatedSprite("sprites/knight_left_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_left_idle.json", player.getHealth());
+    // S KEY (DOWN)
+    else if(keyCode == 83 || keyCode == 40) {
+      if (player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
+        player = new AnimatedSprite("sprites/knight_down_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_down_idle.json", player.getHealth());
+      }
+      down = true;
     }
-    left = true;
-  }
 
-  // W KEY (UP)
-  else if(keyCode == 87 || keyCode == 38) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
-      player = new AnimatedSprite("sprites/knight_up_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_up_idle.json", player.getHealth());
+    // P/Z KEYS (PUNCH)
+    if (punchFlag == false){
+    if(keyCode == 80 || keyCode == 90) {
+      punchFlag = true;
+      for (AnimatedSprite g : currentWorld.getSprites()) {
+        player.attack(g);
+      }
+      player = new AnimatedSprite("sprites/knight_spin.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_spin.json", player.getHealth());
     }
-    up = true;
-  }
-
-  // D KEY (RIGHT)
-  else if(keyCode == 68 || keyCode == 39) {
-    if (player.getJsonFile().equals("sprites/knight_down_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
-      player = new AnimatedSprite("sprites/knight_right_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_right_idle.json", player.getHealth());
-    }
-    right = true;
-  }
-   
-  // S KEY (DOWN)
-  else if(keyCode == 83 || keyCode == 40) {
-    if (player.getJsonFile().equals("sprites/knight_up_idle.json") || player.getJsonFile().equals("sprites/knight_left_idle.json") || player.getJsonFile().equals("sprites/knight_right_idle.json") || player.getJsonFile().equals("sprites/knight_spin.json")) {
-      player = new AnimatedSprite("sprites/knight_down_idle.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_down_idle.json", player.getHealth());
-    }
-    down = true;
-  }
-
-  // P/Z KEYS (PUNCH)
-
-  if (punchFlag == false){
-   if(keyCode == 80 || keyCode == 90) {
-    punchFlag = true;
-    for (AnimatedSprite g : currentWorld.getSprites()) {
-      player.attack(g);
-    }
-    player = new AnimatedSprite("sprites/knight_spin.png", player.getCenterX()-16.5, player.getCenterY()-31.5, "sprites/knight_spin.json", player.getHealth());
-   }
   }
 
   // HORIZONTAL
@@ -233,6 +232,7 @@ void keyPressed() {
   if (right == false) {
     player.animateMove(0.0, 0.0, 0.1, true);
   }
+}
 }
 
 //Known Processing method that automatically will run whenever a key is released
@@ -312,7 +312,7 @@ public void updateScreen(){
   }
 
     // If the player is offscreen, update the room number, title bar
-  if (player.getCenterY() >= (currentScreen.getBg().height+15.0)) {
+  if (player.getCenterY() >= (currentScreen.getBg().height+18.0)) {
     roomNum++;
     extraText = "Room " + roomNum;
     currentScreen.pause(20);
@@ -331,6 +331,8 @@ public void updateScreen(){
       currentWorld.addSpriteCopyTo(ghoul, 200, 600);
       currentWorld.addSpriteCopyTo(slime, 700, 300);
       currentWorld.addSpriteCopyTo(slime, 700, 500);
+      currentWorld.addSpriteCopyTo(slime, 700, 400);
+      currentWorld.addSpriteCopyTo(slime, 700, 200);
     }
 
     if (roomBag == 1) {
@@ -339,8 +341,8 @@ public void updateScreen(){
       currentWorld.addSpriteCopyTo(slime, 600, 500);
       currentWorld.addSpriteCopyTo(ghoul, 300, 500);
       currentWorld.addSpriteCopyTo(ghoul, 500, 500);
-      currentWorld.addSpriteCopyTo(slime, 100, 100);
-      currentWorld.addSpriteCopyTo(slime, 600, 100);
+      currentWorld.addSpriteCopyTo(slime, 200, 200);
+      currentWorld.addSpriteCopyTo(slime, 600, 200);
     }
 
     if (roomBag == 2) {
@@ -349,15 +351,17 @@ public void updateScreen(){
       currentWorld.addSpriteCopyTo(ghoul, 800, 100);
       currentWorld.addSpriteCopyTo(ghoul, 100, 600);
       currentWorld.addSpriteCopyTo(slime, 400, 400);
+      currentWorld.addSpriteCopyTo(slime, 500, 500);
+      currentWorld.addSpriteCopyTo(slime, 300, 300);
     }
 
     if (roomBag == 3) {
-      currentWorld.addSpriteCopyTo(slime, 100, 200);
-      currentWorld.addSpriteCopyTo(slime, 100, 400);
-      currentWorld.addSpriteCopyTo(slime, 100, 600);
-      currentWorld.addSpriteCopyTo(slime, 800, 200);
-      currentWorld.addSpriteCopyTo(slime, 800, 400);
-      currentWorld.addSpriteCopyTo(slime, 800, 600);
+      currentWorld.addSpriteCopyTo(slime, 200, 200);
+      currentWorld.addSpriteCopyTo(slime, 200, 400);
+      currentWorld.addSpriteCopyTo(slime, 200, 600);
+      currentWorld.addSpriteCopyTo(slime, 700, 200);
+      currentWorld.addSpriteCopyTo(slime, 700, 400);
+      currentWorld.addSpriteCopyTo(slime, 700, 600);
       currentWorld.addSpriteCopyTo(slime, 400, 600);
     }
 
@@ -389,12 +393,6 @@ public void moveSprites(){
 
 //Method to handle the collisions between Sprites on the Screen
 public void handleCollisions(){
-  /**
-  if(player.getTop() < ghoul.getBottom() && player.getBottom() > ghoul.getTop() && player.getRight() > ghoul.getLeft() && player.getLeft() < ghoul.getRight()) {
-    ghoul.attack(player);
-  }
-  **/
-
   // Constantly loop through all the sprites in the room to check if they can attack the player
   if (currentScreen != splashScreen) {
     for (AnimatedSprite g : currentWorld.getSprites()) {

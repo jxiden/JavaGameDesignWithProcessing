@@ -237,7 +237,8 @@ void keyPressed() {
       for (AnimatedSprite g : currentWorld.getSprites()) {
       g.setHealth(0);
     }
-    currentScreen.pause(20);
+    checkAnimations();
+    currentScreen.pause(50);
     player = new AnimatedSprite("sprites/knight_down_idle.png", 470.0, 360.0, "sprites/knight_down_idle.json", 5);
     healthBar = new Sprite("sprites/health5.png", healthBar.getCenterX(), healthBar.getCenterY());
     roomNum = 0;
@@ -461,6 +462,7 @@ public void handleCollisions(){
     for (AnimatedSprite g : currentWorld.getSprites()) {
       if(player.getTop() < g.getBottom() && player.getBottom() > g.getTop() && player.getRight() > g.getLeft() && player.getLeft() < g.getRight()) {
         g.attack(player);
+        checkAnimations();
       }
     }
   }

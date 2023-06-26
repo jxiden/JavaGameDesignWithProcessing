@@ -83,7 +83,6 @@ void setup() {
   //setup the sprites/images
   animationSetup();
  
-
   //start the splashscreen
   updateScreen();
 
@@ -231,6 +230,7 @@ void keyPressed() {
     }
   }
 
+  // If the spacebar is hit during the endscreen, restart the game
   if (gameOver == true && currentScreen != splashScreen) {
     if (keyCode == 32) {
     player = new AnimatedSprite("sprites/knight_down_idle.png", 470.0, 360.0, "sprites/knight_down_idle.json", 5);

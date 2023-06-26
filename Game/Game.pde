@@ -117,6 +117,7 @@ void draw() {
   }
 
   //System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
+  System.out.println(player.getHealth());
   
   msElapsed +=1;
   currentScreen.pause(1);

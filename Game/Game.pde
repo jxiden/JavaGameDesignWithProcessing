@@ -89,7 +89,7 @@ void setup() {
 
   // Sound Setup
   // Load a soundfile from the /data folder of the sketch and play it back
-  song = new SoundFile(this, "sounds/Dungeon_Knight_Theme.mp3");
+  song = new SoundFile(this, "sounds/Dungeon_Knight_Theme.wav");
   song.loop();
 
   imageMode(CORNER); // Set Images to read coordinates at corners
@@ -117,7 +117,7 @@ void draw() {
     endGame();
   }
 
-  System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
+  //System.out.println("Player Coords: " + player.getCenterX() + ", " + player.getCenterY());
   
   msElapsed +=1;
   currentScreen.pause(1);

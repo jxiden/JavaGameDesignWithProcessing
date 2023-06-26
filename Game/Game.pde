@@ -230,6 +230,20 @@ void keyPressed() {
       player.animateMove(0.0, 0.0, 0.1, true);
     }
   }
+
+  if (gameOver == true && currentScreen != splashScreen) {
+    if (keyCode == 32) {
+    player = new AnimatedSprite("sprites/knight_down_idle.png", 470.0, 360.0, "sprites/knight_down_idle.json", 5);
+    healthBar = new Sprite("sprites/health5.png", healthBar.getCenterX(), healthBar.getCenterY());
+    roomNum = 0;
+    extraText = "Starting Room";
+    currentScreen = mainGrid;
+    for (AnimatedSprite g : currentWorld.getSprites()) {
+      g.setHealth(0);
+    }
+    gameOver = false;
+    }
+  }
 }
 
 //Known Processing method that automatically will run whenever a key is released
@@ -514,7 +528,7 @@ public void endGame(){
 // Note: Ghoul and slime are offscreen because this game uses copies of these two sprites
 // We do not want these master sprites to die, so that the game can function correctly
 public void animationSetup(){  
-  player = new AnimatedSprite("sprites/knight_down_idle.png", 480.0, 360.0, "sprites/knight_down_idle.json", 5);
+  player = new AnimatedSprite("sprites/knight_down_idle.png", 470.0, 360.0, "sprites/knight_down_idle.json", 5);
   ghoul = new AnimatedSprite("sprites/ghoul_left.png", "sprites/ghoul_left.json", -600.0, -600.0, 5);
   slime = new AnimatedSprite("sprites/slime_left.png", "sprites/slime_left.json", -600.0, -600.0, 5);
   glaggle = new AnimatedSprite("sprites/glaggle.png", "sprites/glaggle.json", -600.0, -600.0, 5);

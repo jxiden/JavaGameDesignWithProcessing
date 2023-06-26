@@ -234,14 +234,15 @@ void keyPressed() {
   // If the spacebar is hit during the endscreen, restart the game
   if (gameOver == true && currentScreen != splashScreen) {
     if (keyCode == 32) {
+      for (AnimatedSprite g : currentWorld.getSprites()) {
+      g.setHealth(0);
+    }
+    currentScreen.pause(20);
     player = new AnimatedSprite("sprites/knight_down_idle.png", 470.0, 360.0, "sprites/knight_down_idle.json", 5);
     healthBar = new Sprite("sprites/health5.png", healthBar.getCenterX(), healthBar.getCenterY());
     roomNum = 0;
     extraText = "Starting Room";
     currentScreen = mainGrid;
-    for (AnimatedSprite g : currentWorld.getSprites()) {
-      g.setHealth(0);
-    }
     gameOver = false;
     }
   }
